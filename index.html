@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cartas de Conversa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --wine-900:#3d2352;
+    --wine-800:#4f2f68;
+    --wine-700:#63407e;
+    --cream:#fff9f0;
+    --gold:#f4b740;
+    --gold-light:#ffd97a;
+    --rose:#ff8fab;
+    --sage:#7bc47f;
+    --ink:#42305a;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    font-family:'Quicksand',sans-serif;
+    background:
+      radial-gradient(circle at 12% 10%, rgba(255,217,122,0.20), transparent 38%),
+      radial-gradient(circle at 90% 18%, rgba(255,143,171,0.18), transparent 40%),
+      radial-gradient(circle at 15% 85%, rgba(123,196,127,0.14), transparent 42%),
+      radial-gradient(circle at 88% 82%, rgba(255,143,171,0.14), transparent 42%),
+      linear-gradient(160deg, var(--wine-900), var(--wine-800) 55%, var(--wine-700));
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    padding:28px 16px 40px;
+    color:var(--cream);
+    overflow-x:hidden;
+  }
+
+  .header-decor{
+    font-size:20px;
+    letter-spacing:10px;
+    opacity:0.8;
+    margin-bottom:2px;
+  }
+  .eyebrow{
+    font-family:'Fredoka',sans-serif;
+    font-size:11px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--gold-light);
+    opacity:0.9;
+    margin-bottom:4px;
+  }
+  h1{
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:29px;
+    margin:0 0 8px;
+    text-align:center;
+  }
+  .title-underline{
+    width:64px;
+    height:5px;
+    margin:0 auto 14px;
+    border-radius:999px;
+    background:linear-gradient(90deg, var(--gold-light), var(--rose));
+  }
+  .subtitle{
+    font-size:13.5px;
+    font-weight:500;
+    opacity:0.8;
+    text-align:center;
+    margin-bottom:24px;
+    max-width:300px;
+    line-height:1.5;
+  }
+
+  .categories{
+    display:flex;
+    gap:8px;
+    margin-bottom:26px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .cat-btn{
+    border:2px solid rgba(255,249,240,0.25);
+    background:rgba(255,249,240,0.06);
+    color:var(--cream);
+    padding:8px 15px;
+    border-radius:999px;
+    font-family:'Fredoka',sans-serif;
+    font-size:12.5px;
+    font-weight:500;
+    cursor:pointer;
+    transition:transform .2s cubic-bezier(.34,1.56,.64,1), background .2s ease, border-color .2s ease;
+  }
+  .cat-btn:active{transform:scale(0.93);}
+  .cat-btn[data-cat="engracadas"]{color:var(--gold-light);}
+  .cat-btn[data-cat="casal"]{color:var(--rose);}
+  .cat-btn[data-cat="gerais"]{color:var(--sage);}
+  .cat-btn.active{
+    background:rgba(255,249,240,0.16);
+    border-color:currentColor;
+    transform:scale(1.05);
+  }
+
+  .stage{
+    position:relative;
+    width:290px;
+    height:400px;
+    perspective:1600px;
+    margin-bottom:22px;
+  }
+
+  .card{
+    position:absolute;
+    inset:0;
+    border-radius:28px;
+    cursor:pointer;
+    transform-style:preserve-3d;
+    transition:transform .6s cubic-bezier(.34,1.2,.4,1);
+    box-shadow:0 18px 36px -10px rgba(0,0,0,0.45);
+  }
+  .card.flipped{transform:rotateY(180deg);}
+  .card.enter{animation:dealIn .5s cubic-bezier(.34,1.56,.64,1);}
+  @keyframes dealIn{
+    0%{opacity:0; transform:translateY(26px) rotate(-4deg) scale(.9);}
+    60%{opacity:1; transform:translateY(-4px) rotate(1.5deg) scale(1.02);}
+    100%{opacity:1; transform:translateY(0) rotate(0deg) scale(1);}
+  }
+  .card.enter.flipped{animation:none;}
+
+  .face{
+    position:absolute;
+    inset:0;
+    border-radius:28px;
+    backface-visibility:hidden;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+    text-align:center;
+  }
+
+  .back{
+    background: linear-gradient(155deg, #7a5a9a, #4f2f68 130%);
+    border:3px solid rgba(255,249,240,0.35);
+  }
+  .back-engracadas{
+    background: linear-gradient(155deg, #ffce54, #f4a020 130%);
+    border:3px solid rgba(255,255,255,0.55);
+  }
+  .back-casal{
+    background: linear-gradient(155deg, #ff9fb8, #ef5f88 130%);
+    border:3px solid rgba(255,255,255,0.55);
+  }
+  .back-gerais{
+    background: linear-gradient(155deg, #93d98d, #55a656 130%);
+    border:3px solid rgba(255,255,255,0.55);
+  }
+  .back-pattern{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    user-select:none;
+  }
+  .pattern-emoji{
+    position:absolute;
+    line-height:1;
+    filter:drop-shadow(0 2px 3px rgba(0,0,0,0.12));
+  }
+  .back-hint{
+    position:relative;
+    z-index:1;
+    padding:8px 18px;
+    border-radius:999px;
+    background:rgba(0,0,0,0.18);
+    font-family:'Fredoka',sans-serif;
+    font-size:11.5px;
+    font-weight:500;
+    color:#fff;
+    letter-spacing:1px;
+    text-transform:uppercase;
+  }
+
+  .front{
+    background:var(--cream);
+    color:var(--ink);
+    transform:rotateY(180deg);
+    border:3px solid rgba(255,255,255,0.9);
+  }
+  .front::before{
+    content:"";
+    position:absolute;
+    inset:9px;
+    border:2px dashed rgba(66,48,90,0.15);
+    border-radius:20px;
+    pointer-events:none;
+  }
+  .cat-tag{
+    font-family:'Fredoka',sans-serif;
+    font-size:11.5px;
+    font-weight:600;
+    letter-spacing:1px;
+    padding:5px 14px;
+    border-radius:999px;
+    margin-bottom:18px;
+  }
+  .cat-tag.engracadas{background:#fff1cc; color:#b3760f;}
+  .cat-tag.casal{background:#ffe1e9; color:#d84870;}
+  .cat-tag.gerais{background:#e2f5df; color:#3f8a3f;}
+
+  .question{
+    font-family:'Fredoka',sans-serif;
+    font-size:18.5px;
+    line-height:1.5;
+    font-weight:500;
+  }
+
+  .controls{
+    display:flex;
+    gap:12px;
+    align-items:center;
+  }
+  .btn{
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    border:none;
+    border-radius:16px;
+    padding:13px 22px;
+    cursor:pointer;
+    transition:transform .18s cubic-bezier(.34,1.56,.64,1), opacity .15s ease;
+  }
+  .btn:active{transform:scale(0.92);}
+  .btn-primary{
+    background:linear-gradient(135deg, var(--gold-light), var(--rose));
+    color:var(--wine-900);
+    box-shadow:0 8px 18px -6px rgba(255,143,171,0.6);
+  }
+  .btn-secondary{
+    background:rgba(255,249,240,0.12);
+    color:var(--cream);
+    border:2px solid rgba(255,249,240,0.3);
+  }
+
+  .counter{
+    margin-top:16px;
+    font-family:'Fredoka',sans-serif;
+    font-size:12px;
+    color:rgba(255,249,240,0.7);
+    letter-spacing:0.5px;
+  }
+
+  .done-msg{
+    font-family:'Fredoka',sans-serif;
+    font-size:15.5px;
+    font-weight:500;
+    text-align:center;
+    color:var(--gold-light);
+    line-height:1.6;
+  }
+</style>
+</head>
+<body>
+
+  <div class="header-decor">✨ 💌 ✨</div>
+  <div class="eyebrow">Puxa-conversa</div>
+  <h1>Cartas de Conversa</h1>
+  <div class="title-underline"></div>
+  <p class="subtitle">Toque na carta para virar e ler a pergunta. Escolham juntos, na vez de cada um.</p>
+
+  <div class="categories">
+    <button class="cat-btn active" data-cat="todas">🎴 Todas</button>
+    <button class="cat-btn" data-cat="engracadas">😂 Engraçadas</button>
+    <button class="cat-btn" data-cat="casal">❤️ Casal</button>
+    <button class="cat-btn" data-cat="gerais">💭 Gerais</button>
+  </div>
+
+  <div class="stage" id="stage"></div>
+
+  <div class="controls">
+    <button class="btn btn-secondary" id="shuffleBtn">Embaralhar</button>
+    <button class="btn btn-primary" id="nextBtn">Próxima carta</button>
+  </div>
+
+  <div class="counter" id="counter"></div>
+
+<script>
+const DECK = {
+  engracadas: [
+    "Qual foi a coisa mais estranha que você já comeu achando que era outra coisa?",
+    "Se você tivesse que trocar de nome amanhã, qual nome escolheria?",
+    "Qual é a mentira mais boba que você já contou pros seus pais?",
+    "Se seu pet pudesse falar, qual seria a primeira coisa que ele diria sobre você?",
+    "Qual superpoder inútil você gostaria de ter?",
+    "Já dançou sozinho(a) na frente do espelho fingindo ser cantor(a)? Qual música?",
+    "Qual foi seu apelido mais vergonhoso na infância?",
+    "Se você fosse um tempero, qual seria e por quê?",
+    "Qual é a coisa mais aleatória que te faz rir até hoje?",
+    "Se tivesse que anunciar um produto ridículo na TV, qual seria?",
+    "Qual foi a pior desculpa que você já usou para faltar em algo?",
+    "Se você acordasse amanhã como um personagem de desenho animado, qual seria?",
+    "Qual é o seu talento mais inútil?",
+    "Já fingiu entender um assunto numa conversa? Qual foi?",
+    "Se pudesse trocar de corpo com um animal por um dia, qual escolheria?",
+    "Qual foi o pior corte de cabelo que você já teve?",
+    "Se você fosse expulso de um país, qual seria o motivo mais provável?",
+    "Qual comida você defende com unhas e dentes mesmo todo mundo achando ruim?",
+    "Já caiu andando na rua sem ninguém perto? Conta a história.",
+    "Se sua vida fosse um reality show, qual seria o nome?",
+    "Qual foi a pior compra por impulso que você já fez?",
+    "Se você pudesse ter um jingle pessoal tocando toda vez que entra em um lugar, qual seria a música?",
+    "Qual foi a maior vergonha que você já passou em público?",
+    "Se seus amigos tivessem que te descrever em um emoji só, qual seria?",
+    "Qual foi a desculpa mais criativa que alguém já te deu?",
+    "Se você fosse contratado(a) para um emprego bizarro, qual seria o ideal pra você?",
+    "Qual foi o pior presente que você já ganhou e teve que fingir gostar?",
+    "Se pudesse inventar uma nova palavra, qual seria e o que significaria?",
+    "Qual foi a última vez que você riu tanto que quase chorou? O que aconteceu?",
+    "Se você tivesse que escolher um som para representar sua personalidade, qual seria?",
+    "Qual foi o pior conselho que alguém já te deu levando a sério?",
+    "Se pudesse ser reconhecido(a) por uma habilidade estranha, qual escolheria?",
+    "Qual foi a coisa mais boba que você já discutiu com alguém?",
+    "Se você fosse um filtro de rede social, qual seria o efeito?",
+    "Qual foi a experiência mais constrangedora numa entrevista de emprego ou primeiro dia de trabalho?",
+    "Se pudesse trocar sua voz pela de alguém famoso por um dia, quem escolheria?",
+    "Qual foi o pior apelido que já tentaram te dar e não pegou?",
+    "Se você ganhasse um troféu por algo bobo que faz bem, qual seria?",
+    "Qual foi a mentira mais absurda que você já acreditou?",
+    "Se pudesse ter qualquer animal de estimação exótico, qual escolheria e como chamaria?"
+  ],
+  casal: [
+    "Qual foi o momento em que você percebeu que estava apaixonado(a) por mim?",
+    "Qual é a nossa memória juntos que mais te faz sorrir?",
+    "O que você mais admira em mim que talvez eu nem perceba?",
+    "Se pudéssemos viajar para qualquer lugar do mundo juntos agora, para onde iríamos?",
+    "Qual foi nosso encontro favorito até hoje?",
+    "O que te faz sentir mais amado(a) por mim no dia a dia?",
+    "Qual é um sonho que você quer realizar comigo no futuro?",
+    "Existe algo que você gostaria que fizéssemos juntos mas nunca fizemos?",
+    "Qual música te lembra de nós dois?",
+    "O que você achou de mim no nosso primeiro encontro?",
+    "Qual é a coisa mais engraçada que já aconteceu entre a gente?",
+    "Como você imagina nossa vida daqui a 10 anos?",
+    "Qual foi o momento em que você sentiu que podia confiar 100% em mim?",
+    "O que você mudaria com carinho em mim, se pudesse?",
+    "Qual é a nossa tradição de casal favorita, se tivermos uma?",
+    "O que você sente que aprendeu comigo desde que estamos juntos?",
+    "Qual é o meu jeito de demonstrar carinho que você mais gosta?",
+    "Se pudéssemos reviver um dia nosso juntos, qual escolheria?",
+    "O que você espera que a gente nunca perca com o tempo?",
+    "Qual foi a declaração ou gesto mais romântico que já rolou entre a gente?",
+    "Qual foi o momento em que você sentiu mais orgulho de mim?",
+    "O que você acha que só eu consigo fazer você sentir?",
+    "Qual é a maior diferença entre nós que você acha que nos complementa?",
+    "Se pudéssemos criar uma tradição nova só nossa, qual seria?",
+    "O que te surpreendeu em mim depois que começamos a namorar?",
+    "Qual foi um momento difícil que enfrentamos juntos e que nos deixou mais fortes?",
+    "O que você mais gosta de fazer comigo no dia a dia, mesmo sendo algo simples?",
+    "Se você pudesse me presentear com uma experiência, não um objeto, qual seria?",
+    "Qual palavra você usaria para descrever a nossa relação hoje?",
+    "O que você espera que eu nunca mude?",
+    "Qual foi a primeira coisa que você notou em mim?",
+    "Se pudéssemos morar em qualquer lugar juntos, onde seria e por quê?",
+    "O que te faz sentir seguro(a) na nossa relação?",
+    "Qual é um objetivo que você gostaria que conquistássemos juntos este ano?",
+    "O que você acha que aprendemos um com o outro até agora?",
+    "Se tivéssemos que escrever uma carta pro nosso 'eu' daqui a 5 anos, o que diria?",
+    "Qual foi um gesto pequeno meu que teve um grande significado pra você?",
+    "O que te faz sentir mais próximo(a) de mim?",
+    "Se pudéssemos reviver nosso primeiro 'eu te amo', como seria diferente ou igual?",
+    "O que você mais espera da nossa próxima fase juntos?"
+  ],
+  gerais: [
+    "Se você pudesse aprender qualquer habilidade instantaneamente, qual escolheria?",
+    "Qual foi a decisão mais corajosa que você já tomou?",
+    "O que te deixa mais animado(a) nos dias de hoje?",
+    "Se dinheiro não fosse problema, o que você faria da vida?",
+    "Qual livro, filme ou série mudou sua forma de ver o mundo?",
+    "Qual é o seu maior medo hoje?",
+    "Se pudesse jantar com qualquer pessoa, viva ou morta, quem seria?",
+    "Qual conselho você daria para você mesmo(a) há 5 anos?",
+    "O que te faz sentir mais vivo(a)?",
+    "Qual foi o momento mais desafiador da sua vida até agora?",
+    "Se pudesse morar em qualquer lugar do mundo, onde seria?",
+    "Qual é uma crença que você tinha e mudou de opinião?",
+    "O que você faria num dia sem nenhuma responsabilidade?",
+    "Qual é a coisa que você mais valoriza numa amizade?",
+    "Se pudesse voltar no tempo, qual momento reviveria?",
+    "Qual é o seu maior sonho profissional?",
+    "O que te dá mais paz?",
+    "Qual foi a melhor surpresa que você já recebeu?",
+    "Se você pudesse mudar uma coisa no mundo, o que seria?",
+    "Qual é a lição mais importante que a vida já te ensinou?",
+    "O que te motiva a levantar da cama todos os dias?",
+    "Qual foi um momento em que você teve que sair da sua zona de conforto?",
+    "Se pudesse escolher uma época da história pra viver, qual seria?",
+    "O que você considera sucesso na vida?",
+    "Qual foi a melhor lição que um erro te ensinou?",
+    "Se pudesse ter uma conversa com você mesmo(a) daqui a 20 anos, o que perguntaria?",
+    "O que você faz quando precisa recarregar as energias?",
+    "Qual é uma habilidade que você gostaria de desenvolver mais?",
+    "Se pudesse resolver um problema do mundo, qual escolheria?",
+    "O que te inspira nas pessoas que você admira?",
+    "Qual foi um momento em que você teve que ser corajoso(a) sozinho(a)?",
+    "Se pudesse recomeçar algo do zero, o que seria?",
+    "O que significa liberdade para você?",
+    "Qual foi a melhor aula que a vida te deu fora da escola?",
+    "Se você pudesse escolher sua própria idade para sempre, qual seria?",
+    "O que você gostaria que as pessoas entendessem melhor sobre você?",
+    "Qual foi um momento em que você se sentiu realmente orgulhoso(a) de si mesmo(a)?",
+    "Se pudesse ter certeza de uma coisa sobre o futuro, o que gostaria de saber?",
+    "O que te faz sentir grato(a) hoje?",
+    "Qual conselho você daria para alguém que está começando algo novo?"
+  ]
+};
+
+const CATEGORY_META = {
+  engracadas: { emojis: ["😂","🤣","😹","🎉","😆","🥳"], label: "Engraçada" },
+  casal: { emojis: ["❤️","💕","💖","😍","💌","💗"], label: "Casal" },
+  gerais: { emojis: ["💭","✨","🌟","🌱","🔮","🌈"], label: "Geral" }
+};
+const FALLBACK_EMOJIS = ["✦","⭐","✨"];
+
+let activeCat = "todas";
+let pool = [];
+let drawnCount = 0;
+let totalCount = 0;
+let current = null;
+let flipped = false;
+
+const stage = document.getElementById('stage');
+const counterEl = document.getElementById('counter');
+const nextBtn = document.getElementById('nextBtn');
+const shuffleBtn = document.getElementById('shuffleBtn');
+
+function buildPool(cat){
+  let items = [];
+  if(cat === 'todas'){
+    Object.keys(DECK).forEach(k => {
+      DECK[k].forEach(q => items.push({cat:k, q}));
+    });
+  } else {
+    DECK[cat].forEach(q => items.push({cat, q}));
+  }
+  return shuffleArray(items);
+}
+
+function shuffleArray(arr){
+  const a = arr.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i+1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startDeck(cat){
+  activeCat = cat;
+  pool = buildPool(cat);
+  totalCount = pool.length;
+  drawnCount = 0;
+  current = null;
+  flipped = false;
+  drawNext();
+}
+
+function updateCounter(){
+  if(pool.length === 0 && drawnCount >= totalCount){
+    counterEl.textContent = `Todas as ${totalCount} cartas foram vistas`;
+  } else {
+    counterEl.textContent = `Carta ${drawnCount} de ${totalCount}`;
+  }
+}
+
+function buildPatternHTML(emojis){
+  let html = '';
+  const count = 22;
+  for(let i = 0; i < count; i++){
+    const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+    const top = Math.random() * 100;
+    const left = Math.random() * 100;
+    const size = 24 + Math.random() * 22;
+    const rot = Math.random() * 50 - 25;
+    const opacity = 0.38 + Math.random() * 0.32;
+    html += `<span class="pattern-emoji" style="top:${top}%;left:${left}%;font-size:${size}px;transform:translate(-50%,-50%) rotate(${rot}deg);opacity:${opacity};">${emoji}</span>`;
+  }
+  return html;
+}
+
+function renderBack(withAnim){
+  stage.innerHTML = '';
+  const card = document.createElement('div');
+  card.className = 'card' + (withAnim ? ' enter' : '');
+
+  const meta = current ? CATEGORY_META[current.cat] : null;
+  const backClass = current ? ' back-' + current.cat : '';
+  const patternHtml = buildPatternHTML(meta ? meta.emojis : FALLBACK_EMOJIS);
+
+  card.innerHTML = `
+    <div class="face back${backClass}">
+      <div class="back-pattern">${patternHtml}</div>
+      <div class="back-hint">Toque para virar</div>
+    </div>
+    <div class="face front">
+      <div class="cat-tag"></div>
+      <div class="question"></div>
+    </div>
+  `;
+  card.addEventListener('click', () => {
+    if(!flipped) flipCard(card);
+  });
+  stage.appendChild(card);
+  flipped = false;
+}
+
+function flipCard(card){
+  if(!current) return;
+  const meta = CATEGORY_META[current.cat];
+  const tag = card.querySelector('.cat-tag');
+  const q = card.querySelector('.question');
+  tag.textContent = `${meta.emojis[0]} ${meta.label}`;
+  tag.className = 'cat-tag ' + current.cat;
+  q.textContent = current.q;
+  requestAnimationFrame(() => {
+    card.classList.add('flipped');
+  });
+  flipped = true;
+}
+
+function drawNext(){
+  if(pool.length === 0){
+    if(drawnCount >= totalCount && totalCount > 0){
+      stage.innerHTML = `<div style="height:100%;display:flex;align-items:center;justify-content:center;">
+        <p class="done-msg">Vocês passaram por todas as cartas 🎉<br>Toque em "Embaralhar" para recomeçar.</p>
+      </div>`;
+      return;
+    }
+    return;
+  }
+  current = pool.shift();
+  drawnCount++;
+  renderBack(true);
+  updateCounter();
+}
+
+nextBtn.addEventListener('click', drawNext);
+shuffleBtn.addEventListener('click', () => startDeck(activeCat));
+
+document.querySelectorAll('.cat-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    startDeck(btn.dataset.cat);
+  });
+});
+
+// initial
+startDeck('todas');
+</script>
+
+</body>
+</html>
