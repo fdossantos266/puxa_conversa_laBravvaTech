@@ -119,6 +119,7 @@
     inset:0;
     border-radius:28px;
     cursor:pointer;
+    -webkit-transform-style:preserve-3d;
     transform-style:preserve-3d;
     transition:transform .6s cubic-bezier(.34,1.2,.4,1);
     box-shadow:0 18px 36px -10px rgba(0,0,0,0.45);
@@ -136,7 +137,10 @@
     position:absolute;
     inset:0;
     border-radius:28px;
+    -webkit-backface-visibility:hidden;
     backface-visibility:hidden;
+    -webkit-transform-style:preserve-3d;
+    transform-style:preserve-3d;
     overflow:hidden;
     display:flex;
     flex-direction:column;
@@ -149,6 +153,8 @@
   .back{
     background: linear-gradient(155deg, #7a5a9a, #4f2f68 130%);
     border:3px solid rgba(255,249,240,0.35);
+    -webkit-transform:rotateY(0deg) translateZ(1px);
+    transform:rotateY(0deg) translateZ(1px);
   }
   .back-engracadas{
     background: linear-gradient(155deg, #ffce54, #f4a020 130%);
@@ -191,7 +197,8 @@
   .front{
     background:var(--cream);
     color:var(--ink);
-    transform:rotateY(180deg);
+    -webkit-transform:rotateY(180deg) translateZ(1px);
+    transform:rotateY(180deg) translateZ(1px);
     border:3px solid rgba(255,255,255,0.9);
   }
   .front::before{
