@@ -1,7 +1,7 @@
 {
-  "name": "puxa conversa",
-  "short_name": "puxa conversa",
-  "description": "coloque um fim na falta de assunto graças ao nosso puxa conversa com varios temas",
+  "name": "Puxa Conversa",
+  "short_name": "Puxa Conversa",
+  "description": "Coloque um fim na falta de assunto com cartas de perguntas engraçadas, para casais e gerais.",
   "lang": "pt-BR",
   "start_url": "/",
   "scope": "/",
@@ -12,5 +12,25 @@
     { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
-  ]
+  ],
+
+  "screenshots": [
+  {
+    "src": "/screenshot-mobile.png",
+    "sizes": "412x860",
+    "type": "image/png",
+    "form_factor": "narrow",
+    "label": "Carta virada mostrando uma pergunta, na tela do celular"
+  },
+  {
+    "src": "/screenshot-desktop.png",
+    "sizes": "1088x612",
+    "type": "image/png",
+    "form_factor": "wide",
+    "label": "Tela inicial com as categorias de cartas, no computador"
+  }
+]
+
+  
 }
+
