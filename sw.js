@@ -1,6 +1,6 @@
 // Nome do cache. Mude o "v1" sempre que alterar o site,
 // senão os usuários continuam vendo a versão antiga guardada.
-const CACHE = 'puxa-conversa-v1';
+const CACHE = 'puxa-conversa-v4';
 
 // Arquivos guardados na instalação
 const ARQUIVOS = [
@@ -43,3 +43,7 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
+// 4. MESSAGE: quando a página pedir, pula a espera e assume o controle
+self.addEventListener('message', (event) => {
+  if (event.data === 'ATUALIZAR') self.skipWaiting();
+});

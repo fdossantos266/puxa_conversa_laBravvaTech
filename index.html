@@ -275,6 +275,21 @@
     color:var(--gold-light);
     line-height:1.6;
   }
+
+  .update-banner{
+    position:fixed;              /* fica preso na tela, mesmo rolando */
+    left:50%; bottom:20px;
+    transform:translateX(-50%);  /* centraliza horizontalmente */
+    display:flex; align-items:center; gap:12px;
+    padding:10px 10px 10px 18px;
+    background:var(--wine-900);
+    border:2px solid rgba(255,249,240,0.25);
+    border-radius:18px;
+    box-shadow:0 12px 28px -8px rgba(0,0,0,0.5);
+    font-family:'Fredoka',sans-serif; font-size:14px;
+    z-index:10;                  /* fica por cima das cartas */
+  }
+.update-banner[hidden]{ display:none; }
 </style>
 </head>
 <body>
@@ -300,7 +315,13 @@
   </div>
 
   <div class="counter" id="counter"></div>
-  <button class="btn btn-secondary" id="installBtn" hidden>instalar app</button>
+  <button class="btn btn-secondary" id="installBtn" hidden style="margin-top:16px;">Instalar app</button>
+  <p class="subtitle" id="installHelp" hidden style="margin-top:12px;"></p>
+
+  <div class="update-banner" id="updateBanner" hidden>
+  <span>✨ Nova versão disponível</span>
+  <button class="btn btn-primary" id="updateBtn">Atualizar</button>
+</div>
 
 <script>
 const DECK = {
@@ -572,37 +593,103 @@ document.querySelectorAll('.cat-btn').forEach(btn => {
   });
 });
 
+const updateBanner = document.getElementById('updateBanner');
+const updateBtn = document.getElementById('updateBtn');
+let swEmEspera = null;
+
+function mostrarAviso(sw) {
+  swEmEspera = sw;
+  updateBanner.hidden = false;
+}
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then((reg) => console.log('SW registrado:', reg.scope))
-      .catch((err) => console.error('Erro no SW:', err));
+    navigator.serviceWorker.register('/sw.js').then((reg) => {
+      console.log('SW registrado:', reg.scope);
+
+      // Caso A: já existe uma versão nova esperando
+      if (reg.waiting && navigator.serviceWorker.controller) {
+        mostrarAviso(reg.waiting);
+      }
+
+      // Caso B: uma versão nova começou a ser baixada agora
+      reg.addEventListener('updatefound', () => {
+        const novo = reg.installing;
+        novo.addEventListener('statechange', () => {
+          if (novo.state === 'installed' && navigator.serviceWorker.controller) {
+            mostrarAviso(novo);
+          }
+        });
+      });
+    }).catch((err) => console.error('Erro no SW:', err));
+  });
+
+  // Quando o SW novo assume o controle, recarrega a página uma única vez
+  let recarregando = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (recarregando) return;
+    recarregando = true;
+    window.location.reload();
   });
 }
 
+// Clique em "Atualizar": manda a mensagem para o SW em espera
+updateBtn.addEventListener('click', () => {
+  if (swEmEspera) swEmEspera.postMessage('ATUALIZAR');
+});
+
 let eventoInstalacao = null;
 const installBtn = document.getElementById('installBtn');
+const installHelp = document.getElementById('installHelp');
 
-// 1. O navegador avisa: "este site pode ser instalado"
+// --- Detectar o ambiente ---
+const ua = navigator.userAgent;
+const isIOS = /iPhone|iPad|iPod/.test(ua) ||
+  (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1); // iPad se passa por Mac
+const isAndroid = /Android/.test(ua);
+const isFirefox = /Firefox|FxiOS/.test(ua);
+const isSafariMac = /Macintosh/.test(ua) && /Safari/.test(ua) && !/Chrome|Edg/.test(ua);
+
+// Já está aberto como app instalado?
+const jaInstalado =
+  window.matchMedia('(display-mode: standalone)').matches ||
+  navigator.standalone === true; // versão do iPhone
+
+// --- Texto de ajuda para cada caso ---
+function instrucoes() {
+  if (isIOS) return 'No iPhone/iPad: toque em Compartilhar ⬆️ e depois em "Adicionar à Tela de Início".';
+  if (isAndroid && isFirefox) return 'No Firefox: toque no menu ⋮ e depois em "Instalar".';
+  if (isFirefox) return 'O Firefox não instala apps no computador. Abra este site no Chrome ou no Edge.';
+  if (isSafariMac) return 'No Safari: menu Arquivo → "Adicionar ao Dock".';
+  return 'Abra o menu do navegador e procure "Instalar app" ou "Adicionar à tela inicial".';
+}
+
+// Mostra o botão, a menos que já esteja instalado
+if (!jaInstalado) installBtn.hidden = false;
+
+// Navegadores compatíveis: guarda o evento para usar no clique
 window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();          // impede o aviso automático do navegador
-  eventoInstalacao = e;        // guarda o evento para usar depois
-  installBtn.hidden = false;   // mostra o nosso botão
+  e.preventDefault();
+  eventoInstalacao = e;
 });
 
-// 2. Clique no botão: abre a janela de instalação
+// Clique: instala direto, ou mostra as instruções
 installBtn.addEventListener('click', async () => {
-  if (!eventoInstalacao) return;
-  eventoInstalacao.prompt();
-  const { outcome } = await eventoInstalacao.userChoice; // 'accepted' ou 'dismissed'
-  console.log('Escolha:', outcome);
-  eventoInstalacao = null;     // o evento só pode ser usado uma vez
-  installBtn.hidden = true;
+  if (eventoInstalacao) {
+    eventoInstalacao.prompt();
+    const { outcome } = await eventoInstalacao.userChoice;
+    console.log('Escolha:', outcome);
+    eventoInstalacao = null;
+  } else {
+    installHelp.textContent = instrucoes();
+    installHelp.hidden = false;
+  }
 });
 
-// 3. App instalado (por qualquer caminho): esconde o botão
+// Instalado: esconde tudo
 window.addEventListener('appinstalled', () => {
   installBtn.hidden = true;
+  installHelp.hidden = true;
 });
 // initial
 startDeck('todas');
