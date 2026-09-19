@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cartas de Conversa</title>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#3d2352">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -297,6 +300,7 @@
   </div>
 
   <div class="counter" id="counter"></div>
+  <button class="btn btn-secondary" id="installBtn" hidden>instalar app</button>
 
 <script>
 const DECK = {
@@ -568,6 +572,38 @@ document.querySelectorAll('.cat-btn').forEach(btn => {
   });
 });
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then((reg) => console.log('SW registrado:', reg.scope))
+      .catch((err) => console.error('Erro no SW:', err));
+  });
+}
+
+let eventoInstalacao = null;
+const installBtn = document.getElementById('installBtn');
+
+// 1. O navegador avisa: "este site pode ser instalado"
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();          // impede o aviso automático do navegador
+  eventoInstalacao = e;        // guarda o evento para usar depois
+  installBtn.hidden = false;   // mostra o nosso botão
+});
+
+// 2. Clique no botão: abre a janela de instalação
+installBtn.addEventListener('click', async () => {
+  if (!eventoInstalacao) return;
+  eventoInstalacao.prompt();
+  const { outcome } = await eventoInstalacao.userChoice; // 'accepted' ou 'dismissed'
+  console.log('Escolha:', outcome);
+  eventoInstalacao = null;     // o evento só pode ser usado uma vez
+  installBtn.hidden = true;
+});
+
+// 3. App instalado (por qualquer caminho): esconde o botão
+window.addEventListener('appinstalled', () => {
+  installBtn.hidden = true;
+});
 // initial
 startDeck('todas');
 </script>
