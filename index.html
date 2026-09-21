@@ -559,7 +559,12 @@
       <button class="btn btn-secondary" id="shareBtn" data-i18n="compartilhar">
         Compartilhar
       </button>
-      <button class="btn btn-secondary" id="installBtn" data-i18n="instalar" hidden>
+      <button
+        class="btn btn-secondary"
+        id="installBtn"
+        data-i18n="instalar"
+        hidden
+      >
         Instalar app
       </button>
     </div>
@@ -789,7 +794,7 @@
         // Ignora combinações (Ctrl+R, Alt+..., Cmd+...) e tecla segurada
         if (e.ctrlKey || e.altKey || e.metaKey || e.repeat) return;
 
-        // Se o foco está num botão, deixa Espaço/Enter clicarem nele normalmente
+        // Se o foco está num botão (navegação por Tab), deixa Espaço/Enter clicarem nele
         if (e.target.closest("button") && (e.key === " " || e.key === "Enter"))
           return;
 
@@ -808,6 +813,13 @@
         } else if (e.key.toLowerCase() === "l") {
           proximoIdioma();
         }
+      });
+
+      // Clique com mouse/toque: tira o foco do botão para os atalhos
+      // continuarem funcionando. Clique pelo teclado (Tab + Enter) mantém o foco.
+      document.addEventListener("click", (e) => {
+        const botao = e.target.closest("button");
+        if (botao && e.detail > 0) botao.blur();
       });
 
       // =============================================
