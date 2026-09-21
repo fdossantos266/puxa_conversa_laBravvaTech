@@ -1,6 +1,6 @@
 // Nome do cache. Mude o "v1" sempre que alterar o site,
 // senão os usuários continuam vendo a versão antiga guardada.
-const CACHE = 'puxa-conversa-v11';
+const CACHE = 'puxa-conversa-v12';
 
 // Arquivos guardados na instalação
 const ARQUIVOS = [
@@ -29,6 +29,7 @@ self.addEventListener('activate', (event) => {
 // internet e guarda uma cópia para a próxima vez
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+  if (new URL(event.request.url).pathname.startsWith('/_vercel/')) return;
 
   event.respondWith(
     caches.match(event.request).then((salvo) => {

@@ -4,9 +4,43 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cartas de Conversa</title>
+    <meta
+      name="description"
+      content="Cartas com perguntas engraçadas, para casais e gerais. Em português, francês e inglês."
+    />
+
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://puxa-conversa-la-bravva-tech.vercel.app/"
+    />
+    <meta property="og:title" content="Puxa Conversa – Cartas de Conversa" />
+    <meta
+      property="og:description"
+      content="Cartas com perguntas engraçadas, para casais e gerais. Em português, francês e inglês."
+    />
+    <meta
+      property="og:image"
+      content="https://puxa-conversa-la-bravva-tech.vercel.app/og-image.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#3d2352" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script>
+      window.va =
+        window.va ||
+        function () {
+          (window.vaq = window.vaq || []).push(arguments);
+        };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
@@ -416,6 +450,14 @@
         }
       }
 
+      .acoes-extras {
+        display: flex;
+        gap: 12px;
+        margin-top: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
       /* Telas a partir de 768px de largura (tablets e computadores) */
       @media (min-width: 768px) {
         body {
@@ -512,15 +554,15 @@
 
     <div class="counter" id="counter"></div>
     <p class="atalhos" id="atalhos"></p>
-    <button
-      class="btn btn-secondary"
-      id="installBtn"
-      data-i18n="instalar"
-      hidden
-      style="margin-top: 16px"
-    >
-      Instalar app
-    </button>
+
+    <div class="acoes-extras">
+      <button class="btn btn-secondary" id="shareBtn" data-i18n="compartilhar">
+        Compartilhar
+      </button>
+      <button class="btn btn-secondary" id="installBtn" data-i18n="instalar" hidden>
+        Instalar app
+      </button>
+    </div>
     <p class="subtitle" id="installHelp" hidden style="margin-top: 12px"></p>
 
     <div class="update-banner" id="updateBanner" hidden>
@@ -565,6 +607,11 @@
           atualizar: "Atualizar",
           atalhos:
             "<kbd>Espaço</kbd> virar &nbsp; <kbd>→</kbd> próxima &nbsp; <kbd>1</kbd>–<kbd>4</kbd> categorias &nbsp; <kbd>R</kbd> embaralhar &nbsp; <kbd>L</kbd> idioma",
+          compartilhar: "🔗 Compartilhar",
+          compartilharTexto:
+            "Bora puxar conversa? Cartas com perguntas engraçadas, para casais e gerais.",
+          compartilharPergunta: "Responde essa:",
+          linkCopiado: "✅ Link copiado!",
           instrucoes: {
             ios: 'No iPhone/iPad: toque em Compartilhar ⬆️ e depois em "Adicionar à Tela de Início".',
             firefoxAndroid:
@@ -606,6 +653,11 @@
           atualizar: "Mettre à jour",
           atalhos:
             "<kbd>Espace</kbd> retourner &nbsp; <kbd>→</kbd> suivante &nbsp; <kbd>1</kbd>–<kbd>4</kbd> catégories &nbsp; <kbd>R</kbd> mélanger &nbsp; <kbd>L</kbd> langue",
+          compartilhar: "🔗 Partager",
+          compartilharTexto:
+            "On lance la conversation ? Des cartes avec des questions drôles, pour couples et générales.",
+          compartilharPergunta: "Réponds à celle-ci :",
+          linkCopiado: "✅ Lien copié !",
           instrucoes: {
             ios: "Sur iPhone/iPad : touchez Partager ⬆️ puis « Sur l’écran d’accueil ».",
             firefoxAndroid:
@@ -647,6 +699,11 @@
           atualizar: "Update",
           atalhos:
             "<kbd>Space</kbd> flip &nbsp; <kbd>→</kbd> next &nbsp; <kbd>1</kbd>–<kbd>4</kbd> categories &nbsp; <kbd>R</kbd> shuffle &nbsp; <kbd>L</kbd> language",
+          compartilhar: "🔗 Share",
+          compartilharTexto:
+            "Let’s get talking! Cards with funny, couple and general questions.",
+          compartilharPergunta: "Answer this one:",
+          linkCopiado: "✅ Link copied!",
           instrucoes: {
             ios: 'On iPhone/iPad: tap Share ⬆️, then "Add to Home Screen".',
             firefoxAndroid: 'In Firefox: tap the ⋮ menu, then "Install".',
@@ -708,6 +765,9 @@
         });
       }
 
+      // =============================================
+      // ATALHOS DE TECLADO
+      // =============================================
       const IDIOMAS = Object.keys(TEXTOS); // ['pt', 'fr', 'en']
       const TECLAS_CATEGORIA = {
         Digit1: "todas",
@@ -750,7 +810,10 @@
         }
       });
 
-      // Emojis de cada categoria (os nomes agora vêm de TEXTOS[idioma].etiquetas)
+      // =============================================
+      // JOGO
+      // =============================================
+      // Emojis de cada categoria (os nomes vêm de TEXTOS[idioma].etiquetas)
       const CATEGORY_META = {
         engracadas: { emojis: ["😂", "🤣", "😹", "🎉", "😆", "🥳"] },
         casal: { emojis: ["❤️", "💕", "💖", "😍", "💌", "💗"] },
@@ -965,6 +1028,40 @@
       // Clique em "Atualizar": manda a mensagem para o SW em espera
       updateBtn.addEventListener("click", () => {
         if (swEmEspera) swEmEspera.postMessage("ATUALIZAR");
+      });
+
+      // =============================================
+      // BOTÃO DE COMPARTILHAR
+      // =============================================
+      const shareBtn = document.getElementById("shareBtn");
+      const URL_APP = "https://puxa-conversa-la-bravva-tech.vercel.app/";
+
+      shareBtn.addEventListener("click", async () => {
+        // Carta virada? Compartilha a pergunta. Senão, um convite geral.
+        const texto =
+          flipped && current
+            ? `${t().compartilharPergunta} "${current.q}"`
+            : t().compartilharTexto;
+
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: t().titulo,
+              text: texto,
+              url: URL_APP,
+            });
+          } catch (e) {
+            // A pessoa fechou o menu sem compartilhar: não é erro, só ignoramos
+          }
+        } else {
+          try {
+            await navigator.clipboard.writeText(`${texto} ${URL_APP}`);
+            shareBtn.textContent = t().linkCopiado;
+            setTimeout(() => {
+              shareBtn.textContent = t().compartilhar;
+            }, 2000);
+          } catch (e) {}
+        }
       });
 
       // =============================================
