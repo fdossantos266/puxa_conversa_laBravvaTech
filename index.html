@@ -1,589 +1,842 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cartas de Conversa</title>
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#3d2352">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --wine-900:#3d2352;
-    --wine-800:#4f2f68;
-    --wine-700:#63407e;
-    --cream:#fff9f0;
-    --gold:#f4b740;
-    --gold-light:#ffd97a;
-    --rose:#ff8fab;
-    --sage:#7bc47f;
-    --ink:#42305a;
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;height:100%;}
-  body{
-    font-family:'Quicksand',sans-serif;
-    background:
-      radial-gradient(circle at 12% 10%, rgba(255,217,122,0.20), transparent 38%),
-      radial-gradient(circle at 90% 18%, rgba(255,143,171,0.18), transparent 40%),
-      radial-gradient(circle at 15% 85%, rgba(123,196,127,0.14), transparent 42%),
-      radial-gradient(circle at 88% 82%, rgba(255,143,171,0.14), transparent 42%),
-      linear-gradient(160deg, var(--wine-900), var(--wine-800) 55%, var(--wine-700));
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:flex-start;
-    padding:28px 16px 40px;
-    color:var(--cream);
-    overflow-x:hidden;
-  }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cartas de Conversa</title>
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#3d2352" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --wine-900: #3d2352;
+        --wine-800: #4f2f68;
+        --wine-700: #63407e;
+        --cream: #fff9f0;
+        --gold: #f4b740;
+        --gold-light: #ffd97a;
+        --rose: #ff8fab;
+        --sage: #7bc47f;
+        --ink: #42305a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+      body {
+        font-family: "Quicksand", sans-serif;
+        background:
+          radial-gradient(
+            circle at 12% 10%,
+            rgba(255, 217, 122, 0.2),
+            transparent 38%
+          ),
+          radial-gradient(
+            circle at 90% 18%,
+            rgba(255, 143, 171, 0.18),
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 15% 85%,
+            rgba(123, 196, 127, 0.14),
+            transparent 42%
+          ),
+          radial-gradient(
+            circle at 88% 82%,
+            rgba(255, 143, 171, 0.14),
+            transparent 42%
+          ),
+          linear-gradient(
+            160deg,
+            var(--wine-900),
+            var(--wine-800) 55%,
+            var(--wine-700)
+          );
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 28px 16px 40px;
+        color: var(--cream);
+        overflow-x: hidden;
+      }
 
-  .header-decor{
-    font-size:20px;
-    letter-spacing:10px;
-    opacity:0.8;
-    margin-bottom:2px;
-  }
-  .eyebrow{
-    font-family:'Fredoka',sans-serif;
-    font-size:11px;
-    letter-spacing:3px;
-    text-transform:uppercase;
-    color:var(--gold-light);
-    opacity:0.9;
-    margin-bottom:4px;
-  }
-  h1{
-    font-family:'Fredoka',sans-serif;
-    font-weight:600;
-    font-size:29px;
-    margin:0 0 8px;
-    text-align:center;
-  }
-  .title-underline{
-    width:64px;
-    height:5px;
-    margin:0 auto 14px;
-    border-radius:999px;
-    background:linear-gradient(90deg, var(--gold-light), var(--rose));
-  }
-  .subtitle{
-    font-size:13.5px;
-    font-weight:500;
-    opacity:0.8;
-    text-align:center;
-    margin-bottom:24px;
-    max-width:300px;
-    line-height:1.5;
-  }
+      .header-decor {
+        font-size: 20px;
+        letter-spacing: 10px;
+        opacity: 0.8;
+        margin-bottom: 2px;
+      }
+      .eyebrow {
+        font-family: "Fredoka", sans-serif;
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gold-light);
+        opacity: 0.9;
+        margin-bottom: 4px;
+      }
+      h1 {
+        font-family: "Fredoka", sans-serif;
+        font-weight: 600;
+        font-size: 29px;
+        margin: 0 0 8px;
+        text-align: center;
+      }
+      .title-underline {
+        width: 64px;
+        height: 5px;
+        margin: 0 auto 14px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--gold-light), var(--rose));
+      }
+      .subtitle {
+        font-size: 13.5px;
+        font-weight: 500;
+        opacity: 0.8;
+        text-align: center;
+        margin-bottom: 24px;
+        max-width: 300px;
+        line-height: 1.5;
+      }
 
-  .categories{
-    display:flex;
-    gap:8px;
-    margin-bottom:26px;
-    flex-wrap:wrap;
-    justify-content:center;
-  }
-  .cat-btn{
-    border:2px solid rgba(255,249,240,0.25);
-    background:rgba(255,249,240,0.06);
-    color:var(--cream);
-    padding:8px 15px;
-    border-radius:999px;
-    font-family:'Fredoka',sans-serif;
-    font-size:12.5px;
-    font-weight:500;
-    cursor:pointer;
-    transition:transform .2s cubic-bezier(.34,1.56,.64,1), background .2s ease, border-color .2s ease;
-  }
-  .cat-btn:active{transform:scale(0.93);}
-  .cat-btn[data-cat="engracadas"]{color:var(--gold-light);}
-  .cat-btn[data-cat="casal"]{color:var(--rose);}
-  .cat-btn[data-cat="gerais"]{color:var(--sage);}
-  .cat-btn.active{
-    background:rgba(255,249,240,0.16);
-    border-color:currentColor;
-    transform:scale(1.05);
-  }
+      .categories {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 26px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .cat-btn {
+        border: 2px solid rgba(255, 249, 240, 0.25);
+        background: rgba(255, 249, 240, 0.06);
+        color: var(--cream);
+        padding: 8px 15px;
+        border-radius: 999px;
+        font-family: "Fredoka", sans-serif;
+        font-size: 12.5px;
+        font-weight: 500;
+        cursor: pointer;
+        transition:
+          transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+          background 0.2s ease,
+          border-color 0.2s ease;
+      }
+      .cat-btn:active {
+        transform: scale(0.93);
+      }
+      .cat-btn[data-cat="engracadas"] {
+        color: var(--gold-light);
+      }
+      .cat-btn[data-cat="casal"] {
+        color: var(--rose);
+      }
+      .cat-btn[data-cat="gerais"] {
+        color: var(--sage);
+      }
+      .cat-btn.active {
+        background: rgba(255, 249, 240, 0.16);
+        border-color: currentColor;
+        transform: scale(1.05);
+      }
 
-  .stage{
-    position:relative;
-    width:290px;
-    height:400px;
-    perspective:1600px;
-    margin-bottom:22px;
-  }
+      .stage {
+        position: relative;
+        width: 290px;
+        height: 400px;
+        perspective: 1600px;
+        margin-bottom: 22px;
+      }
 
-  .card{
-    position:absolute;
-    inset:0;
-    border-radius:28px;
-    cursor:pointer;
-    -webkit-transform-style:preserve-3d;
-    transform-style:preserve-3d;
-    transition:transform .6s cubic-bezier(.34,1.2,.4,1);
-    box-shadow:0 18px 36px -10px rgba(0,0,0,0.45);
-  }
-  .card.flipped{transform:rotateY(180deg);}
-  .card.enter{animation:dealIn .5s cubic-bezier(.34,1.56,.64,1);}
-  @keyframes dealIn{
-    0%{opacity:0; transform:translateY(26px) rotate(-4deg) scale(.9);}
-    60%{opacity:1; transform:translateY(-4px) rotate(1.5deg) scale(1.02);}
-    100%{opacity:1; transform:translateY(0) rotate(0deg) scale(1);}
-  }
-  .card.enter.flipped{animation:none;}
+      .card {
+        position: absolute;
+        inset: 0;
+        border-radius: 28px;
+        cursor: pointer;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        transition: transform 0.6s cubic-bezier(0.34, 1.2, 0.4, 1);
+        box-shadow: 0 18px 36px -10px rgba(0, 0, 0, 0.45);
+      }
+      .card.flipped {
+        transform: rotateY(180deg);
+      }
+      .card.enter {
+        animation: dealIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      @keyframes dealIn {
+        0% {
+          opacity: 0;
+          transform: translateY(26px) rotate(-4deg) scale(0.9);
+        }
+        60% {
+          opacity: 1;
+          transform: translateY(-4px) rotate(1.5deg) scale(1.02);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) rotate(0deg) scale(1);
+        }
+      }
+      .card.enter.flipped {
+        animation: none;
+      }
 
-  .face{
-    position:absolute;
-    inset:0;
-    border-radius:28px;
-    -webkit-backface-visibility:hidden;
-    backface-visibility:hidden;
-    -webkit-transform-style:preserve-3d;
-    transform-style:preserve-3d;
-    overflow:hidden;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    padding:30px;
-    text-align:center;
-  }
+      .face {
+        position: absolute;
+        inset: 0;
+        border-radius: 28px;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+        text-align: center;
+      }
 
-  .back{
-    background: linear-gradient(155deg, #7a5a9a, #4f2f68 130%);
-    border:3px solid rgba(255,249,240,0.35);
-    -webkit-transform:rotateY(0deg) translateZ(1px);
-    transform:rotateY(0deg) translateZ(1px);
-  }
-  .back-engracadas{
-    background: linear-gradient(155deg, #ffce54, #f4a020 130%);
-    border:3px solid rgba(255,255,255,0.55);
-  }
-  .back-casal{
-    background: linear-gradient(155deg, #ff9fb8, #ef5f88 130%);
-    border:3px solid rgba(255,255,255,0.55);
-  }
-  .back-gerais{
-    background: linear-gradient(155deg, #93d98d, #55a656 130%);
-    border:3px solid rgba(255,255,255,0.55);
-  }
-  .back-pattern{
-    position:absolute;
-    inset:0;
-    z-index:0;
-    pointer-events:none;
-    user-select:none;
-  }
-  .pattern-emoji{
-    position:absolute;
-    line-height:1;
-    filter:drop-shadow(0 2px 3px rgba(0,0,0,0.12));
-  }
-  .back-hint{
-    position:relative;
-    z-index:1;
-    padding:8px 18px;
-    border-radius:999px;
-    background:rgba(0,0,0,0.18);
-    font-family:'Fredoka',sans-serif;
-    font-size:11.5px;
-    font-weight:500;
-    color:#fff;
-    letter-spacing:1px;
-    text-transform:uppercase;
-  }
+      .back {
+        background: linear-gradient(155deg, #7a5a9a, #4f2f68 130%);
+        border: 3px solid rgba(255, 249, 240, 0.35);
+        -webkit-transform: rotateY(0deg) translateZ(1px);
+        transform: rotateY(0deg) translateZ(1px);
+      }
+      .back-engracadas {
+        background: linear-gradient(155deg, #ffce54, #f4a020 130%);
+        border: 3px solid rgba(255, 255, 255, 0.55);
+      }
+      .back-casal {
+        background: linear-gradient(155deg, #ff9fb8, #ef5f88 130%);
+        border: 3px solid rgba(255, 255, 255, 0.55);
+      }
+      .back-gerais {
+        background: linear-gradient(155deg, #93d98d, #55a656 130%);
+        border: 3px solid rgba(255, 255, 255, 0.55);
+      }
+      .back-pattern {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        user-select: none;
+      }
+      .pattern-emoji {
+        position: absolute;
+        line-height: 1;
+        filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.12));
+      }
+      .back-hint {
+        position: relative;
+        z-index: 1;
+        padding: 8px 18px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.18);
+        font-family: "Fredoka", sans-serif;
+        font-size: 11.5px;
+        font-weight: 500;
+        color: #fff;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
 
-  .front{
-    background:var(--cream);
-    color:var(--ink);
-    -webkit-transform:rotateY(180deg) translateZ(1px);
-    transform:rotateY(180deg) translateZ(1px);
-    border:3px solid rgba(255,255,255,0.9);
-  }
-  .front::before{
-    content:"";
-    position:absolute;
-    inset:9px;
-    border:2px dashed rgba(66,48,90,0.15);
-    border-radius:20px;
-    pointer-events:none;
-  }
-  .cat-tag{
-    font-family:'Fredoka',sans-serif;
-    font-size:11.5px;
-    font-weight:600;
-    letter-spacing:1px;
-    padding:5px 14px;
-    border-radius:999px;
-    margin-bottom:18px;
-  }
-  .cat-tag.engracadas{background:#fff1cc; color:#b3760f;}
-  .cat-tag.casal{background:#ffe1e9; color:#d84870;}
-  .cat-tag.gerais{background:#e2f5df; color:#3f8a3f;}
+      .front {
+        background: var(--cream);
+        color: var(--ink);
+        -webkit-transform: rotateY(180deg) translateZ(1px);
+        transform: rotateY(180deg) translateZ(1px);
+        border: 3px solid rgba(255, 255, 255, 0.9);
+      }
+      .front::before {
+        content: "";
+        position: absolute;
+        inset: 9px;
+        border: 2px dashed rgba(66, 48, 90, 0.15);
+        border-radius: 20px;
+        pointer-events: none;
+      }
+      .cat-tag {
+        font-family: "Fredoka", sans-serif;
+        font-size: 11.5px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        padding: 5px 14px;
+        border-radius: 999px;
+        margin-bottom: 18px;
+      }
+      .cat-tag.engracadas {
+        background: #fff1cc;
+        color: #b3760f;
+      }
+      .cat-tag.casal {
+        background: #ffe1e9;
+        color: #d84870;
+      }
+      .cat-tag.gerais {
+        background: #e2f5df;
+        color: #3f8a3f;
+      }
 
-  .question{
-    font-family:'Fredoka',sans-serif;
-    font-size:18.5px;
-    line-height:1.5;
-    font-weight:500;
-  }
+      .question {
+        font-family: "Fredoka", sans-serif;
+        font-size: 18.5px;
+        line-height: 1.5;
+        font-weight: 500;
+      }
 
-  .controls{
-    display:flex;
-    gap:12px;
-    align-items:center;
-  }
-  .btn{
-    font-family:'Fredoka',sans-serif;
-    font-weight:600;
-    font-size:14.5px;
-    border:none;
-    border-radius:16px;
-    padding:13px 22px;
-    cursor:pointer;
-    transition:transform .18s cubic-bezier(.34,1.56,.64,1), opacity .15s ease;
-  }
-  .btn:active{transform:scale(0.92);}
-  .btn-primary{
-    background:linear-gradient(135deg, var(--gold-light), var(--rose));
-    color:var(--wine-900);
-    box-shadow:0 8px 18px -6px rgba(255,143,171,0.6);
-  }
-  .btn-secondary{
-    background:rgba(255,249,240,0.12);
-    color:var(--cream);
-    border:2px solid rgba(255,249,240,0.3);
-  }
+      .controls {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .btn {
+        font-family: "Fredoka", sans-serif;
+        font-weight: 600;
+        font-size: 14.5px;
+        border: none;
+        border-radius: 16px;
+        padding: 13px 22px;
+        cursor: pointer;
+        transition:
+          transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+          opacity 0.15s ease;
+      }
+      .btn:active {
+        transform: scale(0.92);
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, var(--gold-light), var(--rose));
+        color: var(--wine-900);
+        box-shadow: 0 8px 18px -6px rgba(255, 143, 171, 0.6);
+      }
+      .btn-secondary {
+        background: rgba(255, 249, 240, 0.12);
+        color: var(--cream);
+        border: 2px solid rgba(255, 249, 240, 0.3);
+      }
 
-  .counter{
-    margin-top:16px;
-    font-family:'Fredoka',sans-serif;
-    font-size:12px;
-    color:rgba(255,249,240,0.7);
-    letter-spacing:0.5px;
-  }
+      .counter {
+        margin-top: 16px;
+        font-family: "Fredoka", sans-serif;
+        font-size: 12px;
+        color: rgba(255, 249, 240, 0.7);
+        letter-spacing: 0.5px;
+      }
 
-  .done-msg{
-    font-family:'Fredoka',sans-serif;
-    font-size:15.5px;
-    font-weight:500;
-    text-align:center;
-    color:var(--gold-light);
-    line-height:1.6;
-  }
+      .done-msg {
+        font-family: "Fredoka", sans-serif;
+        font-size: 15.5px;
+        font-weight: 500;
+        text-align: center;
+        color: var(--gold-light);
+        line-height: 1.6;
+      }
 
-  .update-banner{
-    position:fixed;              /* fica preso na tela, mesmo rolando */
-    left:50%; bottom:20px;
-    transform:translateX(-50%);  /* centraliza horizontalmente */
-    display:flex; align-items:center; gap:12px;
-    padding:10px 10px 10px 18px;
-    background:var(--wine-900);
-    border:2px solid rgba(255,249,240,0.25);
-    border-radius:18px;
-    box-shadow:0 12px 28px -8px rgba(0,0,0,0.5);
-    font-family:'Fredoka',sans-serif; font-size:14px;
-    z-index:10;                  /* fica por cima das cartas */
-  }
-  .update-banner[hidden]{ display:none; }
+      .update-banner {
+        position: fixed; /* fica preso na tela, mesmo rolando */
+        left: 50%;
+        bottom: 20px;
+        transform: translateX(-50%); /* centraliza horizontalmente */
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 10px 10px 18px;
+        background: var(--wine-900);
+        border: 2px solid rgba(255, 249, 240, 0.25);
+        border-radius: 18px;
+        box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.5);
+        font-family: "Fredoka", sans-serif;
+        font-size: 14px;
+        z-index: 10; /* fica por cima das cartas */
+      }
+      .update-banner[hidden] {
+        display: none;
+      }
 
-  .lang-switch{
-  position:absolute; top:14px; right:14px;   /* canto superior direito */
-  display:flex; gap:4px; padding:3px;
-  border-radius:999px;
-  background:rgba(255,249,240,0.08);
-  border:1px solid rgba(255,249,240,0.2);
-  }
-  .lang-btn{
-    border:none; background:transparent; color:var(--cream);
-    font-family:'Fredoka',sans-serif; font-size:11.5px; font-weight:600;
-    padding:5px 9px; border-radius:999px;
-    cursor:pointer; opacity:0.65;
-  }
-  .lang-btn.active{ background:rgba(255,249,240,0.18); opacity:1; }
+      .lang-switch {
+        position: absolute;
+        top: 14px;
+        right: 14px; /* canto superior direito */
+        display: flex;
+        gap: 4px;
+        padding: 3px;
+        border-radius: 999px;
+        background: rgba(255, 249, 240, 0.08);
+        border: 1px solid rgba(255, 249, 240, 0.2);
+      }
+      .lang-btn {
+        border: none;
+        background: transparent;
+        color: var(--cream);
+        font-family: "Fredoka", sans-serif;
+        font-size: 11.5px;
+        font-weight: 600;
+        padding: 5px 9px;
+        border-radius: 999px;
+        cursor: pointer;
+        opacity: 0.65;
+      }
+      .lang-btn.active {
+        background: rgba(255, 249, 240, 0.18);
+        opacity: 1;
+      }
 
-    /* Telas a partir de 768px de largura (tablets e computadores) */
-  @media (min-width: 768px){
-    body{ padding:40px 24px 56px; }
+      .atalhos {
+        display: none;
+        margin-top: 14px;
+        font-size: 12px;
+        opacity: 0.6;
+        text-align: center;
+      }
+      .atalhos kbd {
+        font-family: "Fredoka", sans-serif;
+        font-size: 11px;
+        padding: 1px 6px;
+        border-radius: 5px;
+        border: 1px solid rgba(255, 249, 240, 0.35);
+        background: rgba(255, 249, 240, 0.08);
+      }
+      @media (hover: hover) and (pointer: fine) {
+        .atalhos {
+          display: block;
+        }
+      }
 
-    .header-decor{ font-size:26px; }
-    .eyebrow{ font-size:13px; }
-    h1{ font-size:40px; }
-    .subtitle{ font-size:16px; max-width:420px; }
+      /* Telas a partir de 768px de largura (tablets e computadores) */
+      @media (min-width: 768px) {
+        body {
+          padding: 40px 24px 56px;
+        }
 
-    .categories{ gap:12px; margin-bottom:34px; }
-    .cat-btn{ font-size:15px; padding:10px 20px; }
-    .lang-btn{ font-size:13px; padding:6px 11px; }
+        .header-decor {
+          font-size: 26px;
+        }
+        .eyebrow {
+          font-size: 13px;
+        }
+        h1 {
+          font-size: 40px;
+        }
+        .subtitle {
+          font-size: 16px;
+          max-width: 420px;
+        }
 
-    .stage{ width:360px; height:490px; }
-    .face{ padding:40px; }
-    .back-hint{ font-size:13.5px; }
-    .cat-tag{ font-size:13.5px; }
-    .question{ font-size:23px; }
+        .categories {
+          gap: 12px;
+          margin-bottom: 34px;
+        }
+        .cat-btn {
+          font-size: 15px;
+          padding: 10px 20px;
+        }
+        .lang-btn {
+          font-size: 13px;
+          padding: 6px 11px;
+        }
 
-    .btn{ font-size:16.5px; padding:15px 28px; }
-    .counter{ font-size:14px; }
-  }
-</style>
-</head>
-<body>
-  <div class="lang-switch">
-  <button class="lang-btn" data-lang="pt">PT</button>
-  <button class="lang-btn" data-lang="fr">FR</button>
-  <button class="lang-btn" data-lang="en">EN</button>
-  </div>
+        .stage {
+          width: 360px;
+          height: 490px;
+        }
+        .face {
+          padding: 40px;
+        }
+        .back-hint {
+          font-size: 13.5px;
+        }
+        .cat-tag {
+          font-size: 13.5px;
+        }
+        .question {
+          font-size: 23px;
+        }
 
-  <div class="header-decor">✨ 💌 ✨</div>
-  <div class="eyebrow" data-i18n="sobretitulo">Puxa-conversa</div>
-  <h1 data-i18n="titulo">Cartas de Conversa</h1>
-  <div class="title-underline"></div>
-  <p class="subtitle" data-i18n="subtitulo">Toque na carta para virar e ler a pergunta. Escolham juntos, na vez de cada um.</p>
+        .btn {
+          font-size: 16.5px;
+          padding: 15px 28px;
+        }
+        .counter {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="pt">PT</button>
+      <button class="lang-btn" data-lang="fr">FR</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
 
-  <div class="categories">
-    <button class="cat-btn active" data-cat="todas">🎴 Todas</button>
-    <button class="cat-btn" data-cat="engracadas">😂 Engraçadas</button>
-    <button class="cat-btn" data-cat="casal">❤️ Casal</button>
-    <button class="cat-btn" data-cat="gerais">💭 Gerais</button>
-  </div>
+    <div class="header-decor">✨ 💌 ✨</div>
+    <div class="eyebrow" data-i18n="sobretitulo">Puxa-conversa</div>
+    <h1 data-i18n="titulo">Cartas de Conversa</h1>
+    <div class="title-underline"></div>
+    <p class="subtitle" data-i18n="subtitulo">
+      Toque na carta para virar e ler a pergunta. Escolham juntos, na vez de
+      cada um.
+    </p>
 
-  <div class="stage" id="stage"></div>
+    <div class="categories">
+      <button class="cat-btn active" data-cat="todas">🎴 Todas</button>
+      <button class="cat-btn" data-cat="engracadas">😂 Engraçadas</button>
+      <button class="cat-btn" data-cat="casal">❤️ Casal</button>
+      <button class="cat-btn" data-cat="gerais">💭 Gerais</button>
+    </div>
 
-  <div class="controls">
-    <button class="btn btn-secondary" id="shuffleBtn" data-i18n="embaralhar">Embaralhar</button>
-    <button class="btn btn-primary" id="nextBtn" data-i18n="proxima">Próxima carta</button>
-  </div>
+    <div class="stage" id="stage"></div>
 
-  <div class="counter" id="counter"></div>
-  <button class="btn btn-secondary" id="installBtn" data-i18n="instalar" hidden style="margin-top:16px;">Instalar app</button>
-  <p class="subtitle" id="installHelp" hidden style="margin-top:12px;"></p>
+    <div class="controls">
+      <button class="btn btn-secondary" id="shuffleBtn" data-i18n="embaralhar">
+        Embaralhar
+      </button>
+      <button class="btn btn-primary" id="nextBtn" data-i18n="proxima">
+        Próxima carta
+      </button>
+    </div>
 
-  <div class="update-banner" id="updateBanner" hidden>
-    <span data-i18n="novaVersao">✨ Nova versão disponível</span>
-    <button class="btn btn-primary" id="updateBtn" data-i18n="atualizar">Atualizar</button>
-  </div>
-<script src="/perguntas.js"></script>
+    <div class="counter" id="counter"></div>
+    <p class="atalhos" id="atalhos"></p>
+    <button
+      class="btn btn-secondary"
+      id="installBtn"
+      data-i18n="instalar"
+      hidden
+      style="margin-top: 16px"
+    >
+      Instalar app
+    </button>
+    <p class="subtitle" id="installHelp" hidden style="margin-top: 12px"></p>
 
-<script>
+    <div class="update-banner" id="updateBanner" hidden>
+      <span data-i18n="novaVersao">✨ Nova versão disponível</span>
+      <button class="btn btn-primary" id="updateBtn" data-i18n="atualizar">
+        Atualizar
+      </button>
+    </div>
+    <script src="/perguntas.js"></script>
 
+    <script>
+      // =============================================
+      // TEXTOS DA INTERFACE (um bloco por idioma)
+      // =============================================
+      const TEXTOS = {
+        pt: {
+          lang: "pt-BR",
+          sobretitulo: "Puxa-conversa",
+          titulo: "Cartas de Conversa",
+          subtitulo:
+            "Toque na carta para virar e ler a pergunta. Escolham juntos, na vez de cada um.",
+          categorias: {
+            todas: "🎴 Todas",
+            engracadas: "😂 Engraçadas",
+            casal: "❤️ Casal",
+            gerais: "💭 Gerais",
+          },
+          etiquetas: {
+            engracadas: "Engraçada",
+            casal: "Casal",
+            gerais: "Geral",
+          },
+          embaralhar: "Embaralhar",
+          proxima: "Próxima carta",
+          tocarParaVirar: "Toque para virar",
+          contador: (atual, total) => `Carta ${atual} de ${total}`,
+          todasVistas: (total) => `Todas as ${total} cartas foram vistas`,
+          fimBaralho:
+            'Vocês passaram por todas as cartas 🎉<br>Toque em "Embaralhar" para recomeçar.',
+          instalar: "Instalar app",
+          novaVersao: "✨ Nova versão disponível",
+          atualizar: "Atualizar",
+          atalhos:
+            "<kbd>Espaço</kbd> virar &nbsp; <kbd>→</kbd> próxima &nbsp; <kbd>1</kbd>–<kbd>4</kbd> categorias &nbsp; <kbd>R</kbd> embaralhar &nbsp; <kbd>L</kbd> idioma",
+          instrucoes: {
+            ios: 'No iPhone/iPad: toque em Compartilhar ⬆️ e depois em "Adicionar à Tela de Início".',
+            firefoxAndroid:
+              'No Firefox: toque no menu ⋮ e depois em "Instalar".',
+            firefoxPC:
+              "O Firefox não instala apps no computador. Abra este site no Chrome ou no Edge.",
+            safariMac: 'No Safari: menu Arquivo → "Adicionar ao Dock".',
+            generico:
+              'Abra o menu do navegador e procure "Instalar app" ou "Adicionar à tela inicial".',
+          },
+        },
 
+        fr: {
+          lang: "fr",
+          sobretitulo: "Puxa-conversa",
+          titulo: "Cartes de Conversation",
+          subtitulo:
+            "Touchez la carte pour la retourner et lire la question. Choisissez ensemble, chacun son tour.",
+          categorias: {
+            todas: "🎴 Toutes",
+            engracadas: "😂 Drôles",
+            casal: "❤️ Couple",
+            gerais: "💭 Générales",
+          },
+          etiquetas: {
+            engracadas: "Drôle",
+            casal: "Couple",
+            gerais: "Générale",
+          },
+          embaralhar: "Mélanger",
+          proxima: "Carte suivante",
+          tocarParaVirar: "Touchez pour retourner",
+          contador: (atual, total) => `Carte ${atual} sur ${total}`,
+          todasVistas: (total) => `Les ${total} cartes ont toutes été vues`,
+          fimBaralho:
+            "Vous avez vu toutes les cartes 🎉<br>Touchez « Mélanger » pour recommencer.",
+          instalar: "Installer l’app",
+          novaVersao: "✨ Nouvelle version disponible",
+          atualizar: "Mettre à jour",
+          atalhos:
+            "<kbd>Espace</kbd> retourner &nbsp; <kbd>→</kbd> suivante &nbsp; <kbd>1</kbd>–<kbd>4</kbd> catégories &nbsp; <kbd>R</kbd> mélanger &nbsp; <kbd>L</kbd> langue",
+          instrucoes: {
+            ios: "Sur iPhone/iPad : touchez Partager ⬆️ puis « Sur l’écran d’accueil ».",
+            firefoxAndroid:
+              "Dans Firefox : touchez le menu ⋮ puis « Installer ».",
+            firefoxPC:
+              "Firefox n’installe pas d’applications sur ordinateur. Ouvrez ce site dans Chrome ou Edge.",
+            safariMac: "Dans Safari : menu Fichier → « Ajouter au Dock ».",
+            generico:
+              "Ouvrez le menu du navigateur et cherchez « Installer l’application » ou « Ajouter à l’écran d’accueil ».",
+          },
+        },
 
-// =============================================
-// TEXTOS DA INTERFACE (um bloco por idioma)
-// =============================================
-const TEXTOS = {
-  pt: {
-    lang: 'pt-BR',
-    sobretitulo: 'Puxa-conversa',
-    titulo: 'Cartas de Conversa',
-    subtitulo: 'Toque na carta para virar e ler a pergunta. Escolham juntos, na vez de cada um.',
-    categorias: { todas: '🎴 Todas', engracadas: '😂 Engraçadas', casal: '❤️ Casal', gerais: '💭 Gerais' },
-    etiquetas: { engracadas: 'Engraçada', casal: 'Casal', gerais: 'Geral' },
-    embaralhar: 'Embaralhar',
-    proxima: 'Próxima carta',
-    tocarParaVirar: 'Toque para virar',
-    contador: (atual, total) => `Carta ${atual} de ${total}`,
-    todasVistas: (total) => `Todas as ${total} cartas foram vistas`,
-    fimBaralho: 'Vocês passaram por todas as cartas 🎉<br>Toque em "Embaralhar" para recomeçar.',
-    instalar: 'Instalar app',
-    novaVersao: '✨ Nova versão disponível',
-    atualizar: 'Atualizar',
-    instrucoes: {
-      ios: 'No iPhone/iPad: toque em Compartilhar ⬆️ e depois em "Adicionar à Tela de Início".',
-      firefoxAndroid: 'No Firefox: toque no menu ⋮ e depois em "Instalar".',
-      firefoxPC: 'O Firefox não instala apps no computador. Abra este site no Chrome ou no Edge.',
-      safariMac: 'No Safari: menu Arquivo → "Adicionar ao Dock".',
-      generico: 'Abra o menu do navegador e procure "Instalar app" ou "Adicionar à tela inicial".'
-    }
-  },
+        en: {
+          lang: "en",
+          sobretitulo: "Puxa-conversa",
+          titulo: "Conversation Cards",
+          subtitulo:
+            "Tap the card to flip it and read the question. Take turns choosing together.",
+          categorias: {
+            todas: "🎴 All",
+            engracadas: "😂 Funny",
+            casal: "❤️ Couple",
+            gerais: "💭 General",
+          },
+          etiquetas: {
+            engracadas: "Funny",
+            casal: "Couple",
+            gerais: "General",
+          },
+          embaralhar: "Shuffle",
+          proxima: "Next card",
+          tocarParaVirar: "Tap to flip",
+          contador: (atual, total) => `Card ${atual} of ${total}`,
+          todasVistas: (total) => `All ${total} cards have been seen`,
+          fimBaralho:
+            'You’ve gone through all the cards 🎉<br>Tap "Shuffle" to start over.',
+          instalar: "Install app",
+          novaVersao: "✨ New version available",
+          atualizar: "Update",
+          atalhos:
+            "<kbd>Space</kbd> flip &nbsp; <kbd>→</kbd> next &nbsp; <kbd>1</kbd>–<kbd>4</kbd> categories &nbsp; <kbd>R</kbd> shuffle &nbsp; <kbd>L</kbd> language",
+          instrucoes: {
+            ios: 'On iPhone/iPad: tap Share ⬆️, then "Add to Home Screen".',
+            firefoxAndroid: 'In Firefox: tap the ⋮ menu, then "Install".',
+            firefoxPC:
+              "Firefox can’t install apps on desktop. Open this site in Chrome or Edge.",
+            safariMac: 'In Safari: File menu → "Add to Dock".',
+            generico:
+              'Open the browser menu and look for "Install app" or "Add to Home Screen".',
+          },
+        },
+      };
 
-  fr: {
-    lang: 'fr',
-    sobretitulo: 'Puxa-conversa',
-    titulo: 'Cartes de Conversation',
-    subtitulo: 'Touchez la carte pour la retourner et lire la question. Choisissez ensemble, chacun son tour.',
-    categorias: { todas: '🎴 Toutes', engracadas: '😂 Drôles', casal: '❤️ Couple', gerais: '💭 Générales' },
-    etiquetas: { engracadas: 'Drôle', casal: 'Couple', gerais: 'Générale' },
-    embaralhar: 'Mélanger',
-    proxima: 'Carte suivante',
-    tocarParaVirar: 'Touchez pour retourner',
-    contador: (atual, total) => `Carte ${atual} sur ${total}`,
-    todasVistas: (total) => `Les ${total} cartes ont toutes été vues`,
-    fimBaralho: 'Vous avez vu toutes les cartes 🎉<br>Touchez « Mélanger » pour recommencer.',
-    instalar: 'Installer l’app',
-    novaVersao: '✨ Nouvelle version disponible',
-    atualizar: 'Mettre à jour',
-    instrucoes: {
-      ios: 'Sur iPhone/iPad : touchez Partager ⬆️ puis « Sur l’écran d’accueil ».',
-      firefoxAndroid: 'Dans Firefox : touchez le menu ⋮ puis « Installer ».',
-      firefoxPC: 'Firefox n’installe pas d’applications sur ordinateur. Ouvrez ce site dans Chrome ou Edge.',
-      safariMac: 'Dans Safari : menu Fichier → « Ajouter au Dock ».',
-      generico: 'Ouvrez le menu du navigateur et cherchez « Installer l’application » ou « Ajouter à l’écran d’accueil ».'
-    }
-  },
+      // =============================================
+      // IDIOMA ATUAL + FUNÇÃO QUE APLICA OS TEXTOS
+      // =============================================
+      function detectarIdioma() {
+        // 1. Escolha salva numa visita anterior
+        try {
+          const salvo = localStorage.getItem("idioma");
+          if (salvo && TEXTOS[salvo]) return salvo;
+        } catch (e) {}
 
-  en: {
-    lang: 'en',
-    sobretitulo: 'Puxa-conversa',
-    titulo: 'Conversation Cards',
-    subtitulo: 'Tap the card to flip it and read the question. Take turns choosing together.',
-    categorias: { todas: '🎴 All', engracadas: '😂 Funny', casal: '❤️ Couple', gerais: '💭 General' },
-    etiquetas: { engracadas: 'Funny', casal: 'Couple', gerais: 'General' },
-    embaralhar: 'Shuffle',
-    proxima: 'Next card',
-    tocarParaVirar: 'Tap to flip',
-    contador: (atual, total) => `Card ${atual} of ${total}`,
-    todasVistas: (total) => `All ${total} cards have been seen`,
-    fimBaralho: 'You’ve gone through all the cards 🎉<br>Tap "Shuffle" to start over.',
-    instalar: 'Install app',
-    novaVersao: '✨ New version available',
-    atualizar: 'Update',
-    instrucoes: {
-      ios: 'On iPhone/iPad: tap Share ⬆️, then "Add to Home Screen".',
-      firefoxAndroid: 'In Firefox: tap the ⋮ menu, then "Install".',
-      firefoxPC: 'Firefox can’t install apps on desktop. Open this site in Chrome or Edge.',
-      safariMac: 'In Safari: File menu → "Add to Dock".',
-      generico: 'Open the browser menu and look for "Install app" or "Add to Home Screen".'
-    }
-  }
-};
+        // 2. Idioma do aparelho: 'fr-FR' → 'fr', 'pt-BR' → 'pt', 'en-US' → 'en'
+        const doAparelho = (navigator.language || "pt").slice(0, 2);
+        if (TEXTOS[doAparelho]) return doAparelho;
 
-// =============================================
-// IDIOMA ATUAL + FUNÇÃO QUE APLICA OS TEXTOS
-// =============================================
-function detectarIdioma() {
-  // 1. Escolha salva numa visita anterior
-  try {
-    const salvo = localStorage.getItem('idioma');
-    if (salvo && TEXTOS[salvo]) return salvo;
-  } catch (e) {}
+        // 3. Padrão
+        return "pt";
+      }
 
-  // 2. Idioma do aparelho: 'fr-FR' → 'fr', 'pt-BR' → 'pt', 'en-US' → 'en'
-  const doAparelho = (navigator.language || 'pt').slice(0, 2);
-  if (TEXTOS[doAparelho]) return doAparelho;
+      let idioma = detectarIdioma();
 
-  // 3. Padrão
-  return 'pt';
-}
+      // Atalho: t() devolve os textos do idioma atual
+      function t() {
+        return TEXTOS[idioma];
+      }
 
-let idioma = detectarIdioma();
+      function aplicarIdioma() {
+        // Idioma da página e título da aba
+        document.documentElement.lang = t().lang;
+        document.title = t().titulo;
 
-// Atalho: t() devolve os textos do idioma atual
-function t() {
-  return TEXTOS[idioma];
-}
+        // Todos os elementos marcados com data-i18n
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          el.textContent = t()[el.dataset.i18n];
+        });
 
-function aplicarIdioma() {
-  // Idioma da página e título da aba
-  document.documentElement.lang = t().lang;
-  document.title = t().titulo;
+        // Botões de categoria, usando o data-cat que já existe
+        document.querySelectorAll(".cat-btn").forEach((btn) => {
+          btn.textContent = t().categorias[btn.dataset.cat];
+        });
 
-  // Todos os elementos marcados com data-i18n
-  document.querySelectorAll('[data-i18n]').forEach((el) => {
-    el.textContent = t()[el.dataset.i18n];
-  });
+        // Dica de atalhos (tem <kbd>, por isso innerHTML)
+        document.getElementById("atalhos").innerHTML = t().atalhos;
 
-  // Botões de categoria, usando o data-cat que já existe
-  document.querySelectorAll('.cat-btn').forEach((btn) => {
-    btn.textContent = t().categorias[btn.dataset.cat];
-  });
+        // Destaca o botão do idioma atual
+        document.querySelectorAll(".lang-btn").forEach((b) => {
+          b.classList.toggle("active", b.dataset.lang === idioma);
+        });
+      }
 
-    // Destaca o botão do idioma atual
-  document.querySelectorAll('.lang-btn').forEach((b) => {
-    b.classList.toggle('active', b.dataset.lang === idioma);
-  });
-}
+      const IDIOMAS = Object.keys(TEXTOS); // ['pt', 'fr', 'en']
+      const TECLAS_CATEGORIA = {
+        Digit1: "todas",
+        Numpad1: "todas",
+        Digit2: "engracadas",
+        Numpad2: "engracadas",
+        Digit3: "casal",
+        Numpad3: "casal",
+        Digit4: "gerais",
+        Numpad4: "gerais",
+      };
 
+      function proximoIdioma() {
+        const i = IDIOMAS.indexOf(idioma);
+        mudarIdioma(IDIOMAS[(i + 1) % IDIOMAS.length]); // volta ao início depois do último
+      }
 
+      document.addEventListener("keydown", (e) => {
+        // Ignora combinações (Ctrl+R, Alt+..., Cmd+...) e tecla segurada
+        if (e.ctrlKey || e.altKey || e.metaKey || e.repeat) return;
 
-// Emojis de cada categoria (os nomes agora vêm de TEXTOS[idioma].etiquetas)
-const CATEGORY_META = {
-  engracadas: { emojis: ["😂","🤣","😹","🎉","😆","🥳"] },
-  casal: { emojis: ["❤️","💕","💖","😍","💌","💗"] },
-  gerais: { emojis: ["💭","✨","🌟","🌱","🔮","🌈"] }
-};
-const FALLBACK_EMOJIS = ["✦","⭐","✨"];
+        // Se o foco está num botão, deixa Espaço/Enter clicarem nele normalmente
+        if (e.target.closest("button") && (e.key === " " || e.key === "Enter"))
+          return;
 
-let activeCat = "todas";
-let pool = [];
-let drawnCount = 0;
-let totalCount = 0;
-let current = null;
-let flipped = false;
+        const card = stage.querySelector(".card");
 
-const stage = document.getElementById('stage');
-const counterEl = document.getElementById('counter');
-const nextBtn = document.getElementById('nextBtn');
-const shuffleBtn = document.getElementById('shuffleBtn');
+        if (e.key === " ") {
+          e.preventDefault(); // Espaço não rola a página
+          if (card && !flipped) flipCard(card);
+        } else if (e.key === "ArrowRight" || e.key === "Enter") {
+          e.preventDefault();
+          drawNext();
+        } else if (TECLAS_CATEGORIA[e.code]) {
+          selecionarCategoria(TECLAS_CATEGORIA[e.code]);
+        } else if (e.key.toLowerCase() === "r") {
+          startDeck(activeCat);
+        } else if (e.key.toLowerCase() === "l") {
+          proximoIdioma();
+        }
+      });
 
-function buildPool(cat){
-  const perguntas = DECK[idioma];
-  let items = [];
-  if(cat === 'todas'){
-    Object.keys(perguntas).forEach(k => {
-      perguntas[k].forEach(q => items.push({cat:k, q}));
-    });
-  } else {
-    perguntas[cat].forEach(q => items.push({cat, q}));
-  }
-  return shuffleArray(items);
-}
+      // Emojis de cada categoria (os nomes agora vêm de TEXTOS[idioma].etiquetas)
+      const CATEGORY_META = {
+        engracadas: { emojis: ["😂", "🤣", "😹", "🎉", "😆", "🥳"] },
+        casal: { emojis: ["❤️", "💕", "💖", "😍", "💌", "💗"] },
+        gerais: { emojis: ["💭", "✨", "🌟", "🌱", "🔮", "🌈"] },
+      };
+      const FALLBACK_EMOJIS = ["✦", "⭐", "✨"];
 
-function shuffleArray(arr){
-  const a = arr.slice();
-  for(let i = a.length - 1; i > 0; i--){
-    const j = Math.floor(Math.random() * (i+1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
+      let activeCat = "todas";
+      let pool = [];
+      let drawnCount = 0;
+      let totalCount = 0;
+      let current = null;
+      let flipped = false;
 
-function startDeck(cat){
-  activeCat = cat;
-  pool = buildPool(cat);
-  totalCount = pool.length;
-  drawnCount = 0;
-  current = null;
-  flipped = false;
-  drawNext();
-}
+      const stage = document.getElementById("stage");
+      const counterEl = document.getElementById("counter");
+      const nextBtn = document.getElementById("nextBtn");
+      const shuffleBtn = document.getElementById("shuffleBtn");
 
-function updateCounter(){
-  if(pool.length === 0 && drawnCount >= totalCount){
-    counterEl.textContent = t().todasVistas(totalCount);
-  } else {
-    counterEl.textContent = t().contador(drawnCount, totalCount);
-  }
-}
+      function buildPool(cat) {
+        const perguntas = DECK[idioma];
+        let items = [];
+        if (cat === "todas") {
+          Object.keys(perguntas).forEach((k) => {
+            perguntas[k].forEach((q) => items.push({ cat: k, q }));
+          });
+        } else {
+          perguntas[cat].forEach((q) => items.push({ cat, q }));
+        }
+        return shuffleArray(items);
+      }
 
-function buildPatternHTML(emojis){
-  let html = '';
-  const count = 22;
-  for(let i = 0; i < count; i++){
-    const emoji = emojis[Math.floor(Math.random() * emojis.length)];
-    const top = Math.random() * 100;
-    const left = Math.random() * 100;
-    const size = 24 + Math.random() * 22;
-    const rot = Math.random() * 50 - 25;
-    const opacity = 0.38 + Math.random() * 0.32;
-    html += `<span class="pattern-emoji" style="top:${top}%;left:${left}%;font-size:${size}px;transform:translate(-50%,-50%) rotate(${rot}deg);opacity:${opacity};">${emoji}</span>`;
-  }
-  return html;
-}
+      function shuffleArray(arr) {
+        const a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
 
-function renderBack(withAnim){
-  stage.innerHTML = '';
-  const card = document.createElement('div');
-  card.className = 'card' + (withAnim ? ' enter' : '');
+      function startDeck(cat) {
+        activeCat = cat;
+        pool = buildPool(cat);
+        totalCount = pool.length;
+        drawnCount = 0;
+        current = null;
+        flipped = false;
+        drawNext();
+      }
 
-  const meta = current ? CATEGORY_META[current.cat] : null;
-  const backClass = current ? ' back-' + current.cat : '';
-  const patternHtml = buildPatternHTML(meta ? meta.emojis : FALLBACK_EMOJIS);
+      function updateCounter() {
+        if (pool.length === 0 && drawnCount >= totalCount) {
+          counterEl.textContent = t().todasVistas(totalCount);
+        } else {
+          counterEl.textContent = t().contador(drawnCount, totalCount);
+        }
+      }
 
-  card.innerHTML = `
+      function buildPatternHTML(emojis) {
+        let html = "";
+        const count = 22;
+        for (let i = 0; i < count; i++) {
+          const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+          const top = Math.random() * 100;
+          const left = Math.random() * 100;
+          const size = 24 + Math.random() * 22;
+          const rot = Math.random() * 50 - 25;
+          const opacity = 0.38 + Math.random() * 0.32;
+          html += `<span class="pattern-emoji" style="top:${top}%;left:${left}%;font-size:${size}px;transform:translate(-50%,-50%) rotate(${rot}deg);opacity:${opacity};">${emoji}</span>`;
+        }
+        return html;
+      }
+
+      function renderBack(withAnim) {
+        stage.innerHTML = "";
+        const card = document.createElement("div");
+        card.className = "card" + (withAnim ? " enter" : "");
+
+        const meta = current ? CATEGORY_META[current.cat] : null;
+        const backClass = current ? " back-" + current.cat : "";
+        const patternHtml = buildPatternHTML(
+          meta ? meta.emojis : FALLBACK_EMOJIS,
+        );
+
+        card.innerHTML = `
     <div class="face back${backClass}">
       <div class="back-pattern">${patternHtml}</div>
       <div class="back-hint">${t().tocarParaVirar}</div>
@@ -593,178 +846,192 @@ function renderBack(withAnim){
       <div class="question"></div>
     </div>
   `;
-  card.addEventListener('click', () => {
-    if(!flipped) flipCard(card);
-  });
-  stage.appendChild(card);
-  flipped = false;
-}
-
-function flipCard(card){
-  if(!current) return;
-  const meta = CATEGORY_META[current.cat];
-  const tag = card.querySelector('.cat-tag');
-  const q = card.querySelector('.question');
-  tag.textContent = `${meta.emojis[0]} ${t().etiquetas[current.cat]}`;
-  tag.className = 'cat-tag ' + current.cat;
-  q.textContent = current.q;
-  requestAnimationFrame(() => {
-    card.classList.add('flipped');
-  });
-  flipped = true;
-}
-
-function drawNext(){
-  if(pool.length === 0){
-    if(drawnCount >= totalCount && totalCount > 0){
-      stage.innerHTML = `<div style="height:100%;display:flex;align-items:center;justify-content:center;">
-        <p class="done-msg">${t().fimBaralho}</p>
-      </div>`;
-      return;
-    }
-    return;
-  }
-  current = pool.shift();
-  drawnCount++;
-  renderBack(true);
-  updateCounter();
-}
-
-nextBtn.addEventListener('click', drawNext);
-shuffleBtn.addEventListener('click', () => startDeck(activeCat));
-
-document.querySelectorAll('.cat-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    startDeck(btn.dataset.cat);
-  });
-});
-
-function mudarIdioma(novo) {
-  idioma = novo;
-  try { localStorage.setItem('idioma', novo); } catch (e) {}  // lembra a escolha
-  aplicarIdioma();
-  startDeck(activeCat);  // recomeça o baralho no novo idioma
-  installHelp.hidden = true;  // esconde instruções que estavam no idioma antigo
-}
-
-document.querySelectorAll('.lang-btn').forEach((btn) => {
-  btn.addEventListener('click', () => mudarIdioma(btn.dataset.lang));
-});
-
-// =============================================
-// SERVICE WORKER + AVISO DE NOVA VERSÃO
-// =============================================
-const updateBanner = document.getElementById('updateBanner');
-const updateBtn = document.getElementById('updateBtn');
-let swEmEspera = null;
-
-function mostrarAviso(sw) {
-  swEmEspera = sw;
-  updateBanner.hidden = false;
-}
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').then((reg) => {
-      console.log('SW registrado:', reg.scope);
-
-      // Caso A: já existe uma versão nova esperando
-      if (reg.waiting && navigator.serviceWorker.controller) {
-        mostrarAviso(reg.waiting);
+        card.addEventListener("click", () => {
+          if (!flipped) flipCard(card);
+        });
+        stage.appendChild(card);
+        flipped = false;
       }
 
-      // Caso B: uma versão nova começou a ser baixada agora
-      reg.addEventListener('updatefound', () => {
-        const novo = reg.installing;
-        novo.addEventListener('statechange', () => {
-          if (novo.state === 'installed' && navigator.serviceWorker.controller) {
-            mostrarAviso(novo);
-          }
+      function flipCard(card) {
+        if (!current) return;
+        const meta = CATEGORY_META[current.cat];
+        const tag = card.querySelector(".cat-tag");
+        const q = card.querySelector(".question");
+        tag.textContent = `${meta.emojis[0]} ${t().etiquetas[current.cat]}`;
+        tag.className = "cat-tag " + current.cat;
+        q.textContent = current.q;
+        requestAnimationFrame(() => {
+          card.classList.add("flipped");
         });
+        flipped = true;
+      }
+
+      function drawNext() {
+        if (pool.length === 0) {
+          if (drawnCount >= totalCount && totalCount > 0) {
+            stage.innerHTML = `<div style="height:100%;display:flex;align-items:center;justify-content:center;">
+        <p class="done-msg">${t().fimBaralho}</p>
+      </div>`;
+            return;
+          }
+          return;
+        }
+        current = pool.shift();
+        drawnCount++;
+        renderBack(true);
+        updateCounter();
+      }
+
+      nextBtn.addEventListener("click", drawNext);
+      shuffleBtn.addEventListener("click", () => startDeck(activeCat));
+
+      function selecionarCategoria(cat) {
+        document.querySelectorAll(".cat-btn").forEach((b) => {
+          b.classList.toggle("active", b.dataset.cat === cat);
+        });
+        startDeck(cat);
+      }
+
+      document.querySelectorAll(".cat-btn").forEach((btn) => {
+        btn.addEventListener("click", () =>
+          selecionarCategoria(btn.dataset.cat),
+        );
       });
-    }).catch((err) => console.error('Erro no SW:', err));
-  });
 
-  // Quando o SW novo assume o controle, recarrega a página uma única vez
-  let recarregando = false;
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (recarregando) return;
-    recarregando = true;
-    window.location.reload();
-  });
-}
+      function mudarIdioma(novo) {
+        idioma = novo;
+        try {
+          localStorage.setItem("idioma", novo);
+        } catch (e) {} // lembra a escolha
+        aplicarIdioma();
+        startDeck(activeCat); // recomeça o baralho no novo idioma
+        installHelp.hidden = true; // esconde instruções que estavam no idioma antigo
+      }
 
-// Clique em "Atualizar": manda a mensagem para o SW em espera
-updateBtn.addEventListener('click', () => {
-  if (swEmEspera) swEmEspera.postMessage('ATUALIZAR');
-});
+      document.querySelectorAll(".lang-btn").forEach((btn) => {
+        btn.addEventListener("click", () => mudarIdioma(btn.dataset.lang));
+      });
 
-// =============================================
-// BOTÃO DE INSTALAR
-// =============================================
-let eventoInstalacao = null;
-const installBtn = document.getElementById('installBtn');
-const installHelp = document.getElementById('installHelp');
+      // =============================================
+      // SERVICE WORKER + AVISO DE NOVA VERSÃO
+      // =============================================
+      const updateBanner = document.getElementById("updateBanner");
+      const updateBtn = document.getElementById("updateBtn");
+      let swEmEspera = null;
 
-// --- Detectar o ambiente ---
-const ua = navigator.userAgent;
-const isIOS = /iPhone|iPad|iPod/.test(ua) ||
-  (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1); // iPad se passa por Mac
-const isAndroid = /Android/.test(ua);
-const isFirefox = /Firefox|FxiOS/.test(ua);
-const isSafariMac = /Macintosh/.test(ua) && /Safari/.test(ua) && !/Chrome|Edg/.test(ua);
+      function mostrarAviso(sw) {
+        swEmEspera = sw;
+        updateBanner.hidden = false;
+      }
 
-// Já está aberto como app instalado?
-const jaInstalado =
-  window.matchMedia('(display-mode: standalone)').matches ||
-  navigator.standalone === true; // versão do iPhone
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/sw.js")
+            .then((reg) => {
+              console.log("SW registrado:", reg.scope);
 
-// --- Texto de ajuda para cada caso (no idioma atual) ---
-function instrucoes() {
-  const i = t().instrucoes;
-  if (isIOS) return i.ios;
-  if (isAndroid && isFirefox) return i.firefoxAndroid;
-  if (isFirefox) return i.firefoxPC;
-  if (isSafariMac) return i.safariMac;
-  return i.generico;
-}
+              // Caso A: já existe uma versão nova esperando
+              if (reg.waiting && navigator.serviceWorker.controller) {
+                mostrarAviso(reg.waiting);
+              }
 
-// Mostra o botão, a menos que já esteja instalado
-if (!jaInstalado) installBtn.hidden = false;
+              // Caso B: uma versão nova começou a ser baixada agora
+              reg.addEventListener("updatefound", () => {
+                const novo = reg.installing;
+                novo.addEventListener("statechange", () => {
+                  if (
+                    novo.state === "installed" &&
+                    navigator.serviceWorker.controller
+                  ) {
+                    mostrarAviso(novo);
+                  }
+                });
+              });
+            })
+            .catch((err) => console.error("Erro no SW:", err));
+        });
 
-// Navegadores compatíveis: guarda o evento para usar no clique
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  eventoInstalacao = e;
-});
+        // Quando o SW novo assume o controle, recarrega a página uma única vez
+        let recarregando = false;
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+          if (recarregando) return;
+          recarregando = true;
+          window.location.reload();
+        });
+      }
 
-// Clique: instala direto, ou mostra as instruções
-installBtn.addEventListener('click', async () => {
-  if (eventoInstalacao) {
-    eventoInstalacao.prompt();
-    const { outcome } = await eventoInstalacao.userChoice;
-    console.log('Escolha:', outcome);
-    eventoInstalacao = null;
-  } else {
-    installHelp.textContent = instrucoes();
-    installHelp.hidden = false;
-  }
-});
+      // Clique em "Atualizar": manda a mensagem para o SW em espera
+      updateBtn.addEventListener("click", () => {
+        if (swEmEspera) swEmEspera.postMessage("ATUALIZAR");
+      });
 
-// Instalado: esconde tudo
-window.addEventListener('appinstalled', () => {
-  installBtn.hidden = true;
-  installHelp.hidden = true;
-});
+      // =============================================
+      // BOTÃO DE INSTALAR
+      // =============================================
+      let eventoInstalacao = null;
+      const installBtn = document.getElementById("installBtn");
+      const installHelp = document.getElementById("installHelp");
 
-// =============================================
-// INÍCIO
-// =============================================
-aplicarIdioma();
-startDeck('todas');
-</script>
+      // --- Detectar o ambiente ---
+      const ua = navigator.userAgent;
+      const isIOS =
+        /iPhone|iPad|iPod/.test(ua) ||
+        (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1); // iPad se passa por Mac
+      const isAndroid = /Android/.test(ua);
+      const isFirefox = /Firefox|FxiOS/.test(ua);
+      const isSafariMac =
+        /Macintosh/.test(ua) && /Safari/.test(ua) && !/Chrome|Edg/.test(ua);
 
-</body>
+      // Já está aberto como app instalado?
+      const jaInstalado =
+        window.matchMedia("(display-mode: standalone)").matches ||
+        navigator.standalone === true; // versão do iPhone
+
+      // --- Texto de ajuda para cada caso (no idioma atual) ---
+      function instrucoes() {
+        const i = t().instrucoes;
+        if (isIOS) return i.ios;
+        if (isAndroid && isFirefox) return i.firefoxAndroid;
+        if (isFirefox) return i.firefoxPC;
+        if (isSafariMac) return i.safariMac;
+        return i.generico;
+      }
+
+      // Mostra o botão, a menos que já esteja instalado
+      if (!jaInstalado) installBtn.hidden = false;
+
+      // Navegadores compatíveis: guarda o evento para usar no clique
+      window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+        eventoInstalacao = e;
+      });
+
+      // Clique: instala direto, ou mostra as instruções
+      installBtn.addEventListener("click", async () => {
+        if (eventoInstalacao) {
+          eventoInstalacao.prompt();
+          const { outcome } = await eventoInstalacao.userChoice;
+          console.log("Escolha:", outcome);
+          eventoInstalacao = null;
+        } else {
+          installHelp.textContent = instrucoes();
+          installHelp.hidden = false;
+        }
+      });
+
+      // Instalado: esconde tudo
+      window.addEventListener("appinstalled", () => {
+        installBtn.hidden = true;
+        installHelp.hidden = true;
+      });
+
+      // =============================================
+      // INÍCIO
+      // =============================================
+      aplicarIdioma();
+      startDeck("todas");
+    </script>
+  </body>
 </html>
