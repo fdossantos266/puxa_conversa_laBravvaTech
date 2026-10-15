@@ -278,6 +278,10 @@
         height: 400px;
         perspective: 1600px;
         margin-bottom: 22px;
+        /* O body é uma coluna flex. Sem isto, quando o conteúdo passa
+           da altura da tela o navegador encolhe a carta em vez de
+           deixar a página rolar, e a pergunta fica cortada. */
+        flex: 0 0 auto;
       }
 
       .card {
