@@ -1,10 +1,10 @@
 // Nome do cache. Mude o "v1" sempre que alterar o site,
 // senão os usuários continuam vendo a versão antiga guardada.
-const CACHE = 'puxa-conversa-v15';
+const CACHE = 'puxa-conversa-v16';
 
 // Arquivos guardados na instalação
 const ARQUIVOS = [
-    '/index.html','/manifest.json','/','/icon-512.png','/icon-192.png','/apple-touch-icon.png','/perguntas.js'
+    '/index.html','/manifest.json','/','/icon-512.png','/icon-192.png','/apple-touch-icon.png','/favicon.svg','/perguntas.js'
 ];
 
 // 1. INSTALL: abre o cache e guarda todos os arquivos da lista
