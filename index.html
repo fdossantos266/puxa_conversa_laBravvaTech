@@ -56,6 +56,8 @@
         --gold-light: #ffd97a;
         --rose: #ff8fab;
         --sage: #7bc47f;
+        --lilac: #c9a6ff;
+        --flame: #ff8f7a;
         --ink: #42305a;
       }
       * {
@@ -179,10 +181,95 @@
       .cat-btn[data-cat="gerais"] {
         color: var(--sage);
       }
+      .cat-btn[data-cat="paquera"] {
+        color: var(--lilac);
+      }
+      .cat-btn[data-cat="picante"] {
+        color: var(--flame);
+      }
       .cat-btn.active {
         background: rgba(255, 249, 240, 0.16);
         border-color: currentColor;
         transform: scale(1.05);
+      }
+
+      /* ---------- Área adulta (categoria Picante) ---------- */
+      .area-18[hidden] {
+        display: none;
+      }
+      .area-18 {
+        display: flex;
+        justify-content: center;
+        margin: -14px 0 22px;
+        animation: surge18 0.3s ease;
+      }
+      @keyframes surge18 {
+        from {
+          opacity: 0;
+          transform: translateY(-6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .cat-18 {
+        color: var(--flame);
+        border-color: rgba(255, 143, 122, 0.45);
+        background: rgba(255, 143, 122, 0.1);
+      }
+
+      /* ---------- Aviso de idade ---------- */
+      .modal-18 {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background: rgba(30, 16, 44, 0.72);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+      .modal-18[hidden] {
+        display: none;
+      }
+      .modal-18-box {
+        background: linear-gradient(160deg, #543372, #3d2352);
+        border: 2px solid rgba(255, 143, 122, 0.35);
+        border-radius: 24px;
+        padding: 28px 24px 22px;
+        max-width: 330px;
+        text-align: center;
+        box-shadow: 0 24px 50px -12px rgba(0, 0, 0, 0.6);
+        animation: surge18 0.25s ease;
+      }
+      .modal-18-icone {
+        font-size: 34px;
+        line-height: 1;
+        margin-bottom: 10px;
+      }
+      .modal-18-titulo {
+        font-family: "Fredoka", sans-serif;
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0 0 8px;
+        color: var(--cream);
+      }
+      .modal-18-txt {
+        font-size: 13.5px;
+        line-height: 1.55;
+        opacity: 0.82;
+        margin: 0 0 20px;
+      }
+      .modal-18-acoes {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .modal-18-acoes .btn {
+        width: 100%;
       }
 
       .stage {
@@ -262,6 +349,14 @@
         background: linear-gradient(155deg, #93d98d, #55a656 130%);
         border: 3px solid rgba(255, 255, 255, 0.55);
       }
+      .back-paquera {
+        background: linear-gradient(155deg, #cbb0ff, #7c4dde 130%);
+        border: 3px solid rgba(255, 255, 255, 0.55);
+      }
+      .back-picante {
+        background: linear-gradient(155deg, #ff9d82, #d4304f 130%);
+        border: 3px solid rgba(255, 255, 255, 0.55);
+      }
       .back-pattern {
         position: absolute;
         inset: 0;
@@ -323,6 +418,14 @@
       .cat-tag.gerais {
         background: #e2f5df;
         color: #3f8a3f;
+      }
+      .cat-tag.paquera {
+        background: #ece2ff;
+        color: #6b3cc4;
+      }
+      .cat-tag.picante {
+        background: #ffe2dd;
+        color: #c22f4a;
       }
 
       .question {
@@ -401,16 +504,53 @@
         display: none;
       }
 
+      /* Controles do topo: modo +18 e idiomas */
+      /* Barra no fluxo normal (não absoluta): com dois controles ela
+         ficaria por cima do cabeçalho em telas estreitas. */
+      .topo-controles {
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 6px;
+        margin: -10px 0 10px;
+        flex-wrap: wrap;
+      }
       .lang-switch {
-        position: absolute;
-        top: 14px;
-        right: 14px; /* canto superior direito */
         display: flex;
         gap: 4px;
         padding: 3px;
         border-radius: 999px;
         background: rgba(255, 249, 240, 0.08);
         border: 1px solid rgba(255, 249, 240, 0.2);
+      }
+      .toggle-18 {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        padding: 6px 11px;
+        border-radius: 999px;
+        background: rgba(255, 249, 240, 0.08);
+        border: 1px solid rgba(255, 249, 240, 0.2);
+        color: var(--cream);
+        font-family: "Fredoka", sans-serif;
+        font-size: 11.5px;
+        font-weight: 600;
+        cursor: pointer;
+        opacity: 0.55;
+        transition:
+          opacity 0.2s ease,
+          background 0.2s ease,
+          border-color 0.2s ease;
+      }
+      .toggle-18:hover {
+        opacity: 0.85;
+      }
+      .toggle-18.ativo {
+        opacity: 1;
+        color: var(--flame);
+        background: rgba(255, 143, 122, 0.16);
+        border-color: rgba(255, 143, 122, 0.55);
       }
       .lang-btn {
         border: none;
@@ -519,10 +659,20 @@
     </style>
   </head>
   <body>
-    <div class="lang-switch">
-      <button class="lang-btn" data-lang="pt">PT</button>
-      <button class="lang-btn" data-lang="fr">FR</button>
-      <button class="lang-btn" data-lang="en">EN</button>
+    <div class="topo-controles">
+      <button
+        class="toggle-18"
+        id="toggle18"
+        aria-pressed="false"
+        data-i18n-title="modo18"
+      >
+        🔥 +18
+      </button>
+      <div class="lang-switch">
+        <button class="lang-btn" data-lang="pt">PT</button>
+        <button class="lang-btn" data-lang="fr">FR</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
     </div>
 
     <div class="header-decor">✨ 💌 ✨</div>
@@ -539,6 +689,13 @@
       <button class="cat-btn" data-cat="engracadas">😂 Engraçadas</button>
       <button class="cat-btn" data-cat="casal">❤️ Casal</button>
       <button class="cat-btn" data-cat="gerais">💭 Gerais</button>
+      <button class="cat-btn" data-cat="paquera">🦋 Paquera</button>
+    </div>
+
+    <!-- Área adulta: fora da lista normal de categorias. Só aparece
+         quando o modo +18 é ligado no botão do topo. -->
+    <div class="area-18" id="area18" hidden>
+      <button class="cat-btn cat-18" data-cat="picante">🔥 Picante +18</button>
     </div>
 
     <div class="stage" id="stage"></div>
@@ -570,6 +727,28 @@
     </div>
     <p class="subtitle" id="installHelp" hidden style="margin-top: 12px"></p>
 
+    <!-- Confirmação de idade: aparece só na primeira vez -->
+    <div class="modal-18" id="modal18" hidden>
+      <div class="modal-18-box">
+        <div class="modal-18-icone">🔥</div>
+        <p class="modal-18-titulo" data-i18n="aviso18Titulo">
+          Cartas picantes
+        </p>
+        <p class="modal-18-txt" data-i18n="aviso18Texto">
+          Estas cartas têm perguntas de flerte, pensadas para maiores de 18
+          anos. Você tem 18 anos ou mais?
+        </p>
+        <div class="modal-18-acoes">
+          <button class="btn btn-primary" id="sim18" data-i18n="aviso18Sim">
+            Tenho 18 ou mais
+          </button>
+          <button class="btn btn-secondary" id="nao18" data-i18n="aviso18Nao">
+            Agora não
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div class="update-banner" id="updateBanner" hidden>
       <span data-i18n="novaVersao">✨ Nova versão disponível</span>
       <button class="btn btn-primary" id="updateBtn" data-i18n="atualizar">
@@ -594,12 +773,22 @@
             engracadas: "😂 Engraçadas",
             casal: "❤️ Casal",
             gerais: "💭 Gerais",
+            paquera: "🦋 Paquera",
+            picante: "🔥 Picante +18",
           },
           etiquetas: {
             engracadas: "Engraçada",
             casal: "Casal",
             gerais: "Geral",
+            paquera: "Paquera",
+            picante: "Picante",
           },
+          modo18: "🔥 Modo +18",
+          aviso18Titulo: "Cartas picantes",
+          aviso18Texto:
+            "Estas cartas têm perguntas de flerte, pensadas para maiores de 18 anos. Você tem 18 anos ou mais?",
+          aviso18Sim: "Tenho 18 ou mais",
+          aviso18Nao: "Agora não",
           embaralhar: "Embaralhar",
           proxima: "Próxima carta",
           tocarParaVirar: "Toque para virar",
@@ -611,7 +800,7 @@
           novaVersao: "✨ Nova versão disponível",
           atualizar: "Atualizar",
           atalhos:
-            "<kbd>Espaço</kbd> virar &nbsp; <kbd>→</kbd> próxima &nbsp; <kbd>1</kbd>–<kbd>4</kbd> categorias &nbsp; <kbd>R</kbd> embaralhar &nbsp; <kbd>L</kbd> idioma",
+            "<kbd>Espaço</kbd> virar &nbsp; <kbd>→</kbd> próxima &nbsp; <kbd>1</kbd>–<kbd>6</kbd> categorias &nbsp; <kbd>R</kbd> embaralhar &nbsp; <kbd>L</kbd> idioma",
           compartilhar: "🔗 Compartilhar",
           compartilharTexto:
             "Bora puxar conversa? Cartas com perguntas engraçadas, para casais e gerais.",
@@ -640,12 +829,22 @@
             engracadas: "😂 Drôles",
             casal: "❤️ Couple",
             gerais: "💭 Générales",
+            paquera: "🦋 Flirt",
+            picante: "🔥 Épicées +18",
           },
           etiquetas: {
             engracadas: "Drôle",
             casal: "Couple",
             gerais: "Générale",
+            paquera: "Flirt",
+            picante: "Épicée",
           },
+          modo18: "🔥 Mode +18",
+          aviso18Titulo: "Cartes épicées",
+          aviso18Texto:
+            "Ces cartes contiennent des questions de séduction, pensées pour les plus de 18 ans. As-tu 18 ans ou plus ?",
+          aviso18Sim: "J’ai 18 ans ou plus",
+          aviso18Nao: "Pas maintenant",
           embaralhar: "Mélanger",
           proxima: "Carte suivante",
           tocarParaVirar: "Touchez pour retourner",
@@ -657,7 +856,7 @@
           novaVersao: "✨ Nouvelle version disponible",
           atualizar: "Mettre à jour",
           atalhos:
-            "<kbd>Espace</kbd> retourner &nbsp; <kbd>→</kbd> suivante &nbsp; <kbd>1</kbd>–<kbd>4</kbd> catégories &nbsp; <kbd>R</kbd> mélanger &nbsp; <kbd>L</kbd> langue",
+            "<kbd>Espace</kbd> retourner &nbsp; <kbd>→</kbd> suivante &nbsp; <kbd>1</kbd>–<kbd>6</kbd> catégories &nbsp; <kbd>R</kbd> mélanger &nbsp; <kbd>L</kbd> langue",
           compartilhar: "🔗 Partager",
           compartilharTexto:
             "On lance la conversation ? Des cartes avec des questions drôles, pour couples et générales.",
@@ -686,12 +885,22 @@
             engracadas: "😂 Funny",
             casal: "❤️ Couple",
             gerais: "💭 General",
+            paquera: "🦋 Crush",
+            picante: "🔥 Spicy 18+",
           },
           etiquetas: {
             engracadas: "Funny",
             casal: "Couple",
             gerais: "General",
+            paquera: "Crush",
+            picante: "Spicy",
           },
+          modo18: "🔥 18+ mode",
+          aviso18Titulo: "Spicy cards",
+          aviso18Texto:
+            "These cards contain flirty questions meant for people aged 18 and over. Are you 18 or older?",
+          aviso18Sim: "I’m 18 or older",
+          aviso18Nao: "Not now",
           embaralhar: "Shuffle",
           proxima: "Next card",
           tocarParaVirar: "Tap to flip",
@@ -703,7 +912,7 @@
           novaVersao: "✨ New version available",
           atualizar: "Update",
           atalhos:
-            "<kbd>Space</kbd> flip &nbsp; <kbd>→</kbd> next &nbsp; <kbd>1</kbd>–<kbd>4</kbd> categories &nbsp; <kbd>R</kbd> shuffle &nbsp; <kbd>L</kbd> language",
+            "<kbd>Space</kbd> flip &nbsp; <kbd>→</kbd> next &nbsp; <kbd>1</kbd>–<kbd>6</kbd> categories &nbsp; <kbd>R</kbd> shuffle &nbsp; <kbd>L</kbd> language",
           compartilhar: "🔗 Share",
           compartilharTexto:
             "Let’s get talking! Cards with funny, couple and general questions.",
@@ -756,6 +965,13 @@
           el.textContent = t()[el.dataset.i18n];
         });
 
+        // Elementos que traduzem o título (dica ao passar o mouse)
+        document.querySelectorAll("[data-i18n-title]").forEach((el) => {
+          const txt = t()[el.dataset.i18nTitle];
+          el.title = txt;
+          el.setAttribute("aria-label", txt);
+        });
+
         // Botões de categoria, usando o data-cat que já existe
         document.querySelectorAll(".cat-btn").forEach((btn) => {
           btn.textContent = t().categorias[btn.dataset.cat];
@@ -783,6 +999,10 @@
         Numpad3: "casal",
         Digit4: "gerais",
         Numpad4: "gerais",
+        Digit5: "paquera",
+        Numpad5: "paquera",
+        Digit6: "picante",
+        Numpad6: "picante",
       };
 
       function proximoIdioma() {
@@ -793,6 +1013,12 @@
       document.addEventListener("keydown", (e) => {
         // Ignora combinações (Ctrl+R, Alt+..., Cmd+...) e tecla segurada
         if (e.ctrlKey || e.altKey || e.metaKey || e.repeat) return;
+
+        // Com o aviso de idade aberto, só o Esc funciona
+        if (!modal18.hidden) {
+          if (e.key === "Escape") fecharModal18();
+          return;
+        }
 
         // Se o foco está num botão (navegação por Tab), deixa Espaço/Enter clicarem nele
         if (e.target.closest("button") && (e.key === " " || e.key === "Enter"))
@@ -807,7 +1033,7 @@
           e.preventDefault();
           drawNext();
         } else if (TECLAS_CATEGORIA[e.code]) {
-          selecionarCategoria(TECLAS_CATEGORIA[e.code]);
+          pedirCategoria(TECLAS_CATEGORIA[e.code]);
         } else if (e.key.toLowerCase() === "r") {
           startDeck(activeCat);
         } else if (e.key.toLowerCase() === "l") {
@@ -830,6 +1056,8 @@
         engracadas: { emojis: ["😂", "🤣", "😹", "🎉", "😆", "🥳"] },
         casal: { emojis: ["❤️", "💕", "💖", "😍", "💌", "💗"] },
         gerais: { emojis: ["💭", "✨", "🌟", "🌱", "🔮", "🌈"] },
+        paquera: { emojis: ["🦋", "💜", "🌙", "💫", "🫧", "🪶"] },
+        picante: { emojis: ["🔥", "💋", "🌶️", "😏", "🥂", "💃"] },
       };
       const FALLBACK_EMOJIS = ["✦", "⭐", "✨"];
 
@@ -845,13 +1073,20 @@
       const nextBtn = document.getElementById("nextBtn");
       const shuffleBtn = document.getElementById("shuffleBtn");
 
+      // Categorias que NÃO entram no baralho "Todas".
+      // Só aparecem quando a pessoa escolhe a categoria de propósito,
+      // para não pegar ninguém de surpresa numa roda de amigos.
+      const FORA_DE_TODAS = ["picante"];
+
       function buildPool(cat) {
         const perguntas = DECK[idioma];
         let items = [];
         if (cat === "todas") {
-          Object.keys(perguntas).forEach((k) => {
-            perguntas[k].forEach((q) => items.push({ cat: k, q }));
-          });
+          Object.keys(perguntas)
+            .filter((k) => !FORA_DE_TODAS.includes(k))
+            .forEach((k) => {
+              perguntas[k].forEach((q) => items.push({ cat: k, q }));
+            });
         } else {
           perguntas[cat].forEach((q) => items.push({ cat, q }));
         }
@@ -968,10 +1203,102 @@
         startDeck(cat);
       }
 
+      // =============================================
+      // ÁREA +18 (categoria Picante)
+      // Fica escondida atrás de um link e pede confirmação
+      // de idade na primeira vez. A resposta fica salva no aparelho.
+      // =============================================
+      const CATEGORIAS_18 = ["picante"];
+      const toggle18 = document.getElementById("toggle18");
+      const area18 = document.getElementById("area18");
+      const modal18 = document.getElementById("modal18");
+      const sim18 = document.getElementById("sim18");
+      const nao18 = document.getElementById("nao18");
+      let acaoPendente18 = null;
+
+      function liberado18() {
+        try {
+          return localStorage.getItem("maior18") === "1";
+        } catch (e) {
+          return false;
+        }
+      }
+
+      function ligar18() {
+        area18.hidden = false;
+        toggle18.classList.add("ativo");
+        toggle18.setAttribute("aria-pressed", "true");
+      }
+
+      // Desliga, apaga a confirmação salva e volta para "Todas" se a
+      // pessoa estava na Picante. Na próxima vez o aviso aparece de novo.
+      function desligar18() {
+        try {
+          localStorage.removeItem("maior18");
+        } catch (e) {}
+        area18.hidden = true;
+        toggle18.classList.remove("ativo");
+        toggle18.setAttribute("aria-pressed", "false");
+        if (activeCat === "picante") selecionarCategoria("todas");
+      }
+
+      // Executa a ação se já liberado; senão, guarda e abre o aviso.
+      function comConfirmacao18(acao) {
+        if (liberado18()) {
+          acao();
+          return;
+        }
+        acaoPendente18 = acao;
+        modal18.hidden = false;
+      }
+
+      function fecharModal18() {
+        modal18.hidden = true;
+        acaoPendente18 = null;
+      }
+
+      // Um botão só: ligado desliga, desligado pede confirmação e liga.
+      toggle18.addEventListener("click", () => {
+        if (toggle18.classList.contains("ativo")) desligar18();
+        else comConfirmacao18(() => ligar18());
+      });
+
+      sim18.addEventListener("click", () => {
+        try {
+          localStorage.setItem("maior18", "1");
+        } catch (e) {}
+        const acao = acaoPendente18;
+        modal18.hidden = true;
+        acaoPendente18 = null;
+        ligar18();
+        if (acao) acao();
+      });
+
+      nao18.addEventListener("click", fecharModal18);
+
+      // Clique no fundo escuro fecha o aviso
+      modal18.addEventListener("click", (e) => {
+        if (e.target === modal18) fecharModal18();
+      });
+
+      // Se já foi liberado numa visita anterior, liga direto
+      if (liberado18()) ligar18();
+
+      // Porta de entrada única: todo caminho até uma categoria +18
+      // (clique ou atalho de teclado) passa por aqui.
+      function pedirCategoria(cat) {
+        if (CATEGORIAS_18.includes(cat)) {
+          comConfirmacao18(() => {
+            ligar18();
+            selecionarCategoria(cat);
+          });
+        } else {
+          selecionarCategoria(cat);
+        }
+      }
+
       document.querySelectorAll(".cat-btn").forEach((btn) => {
-        btn.addEventListener("click", () =>
-          selecionarCategoria(btn.dataset.cat),
-        );
+        btn.addEventListener("click", () => pedirCategoria(btn.dataset.cat));
       });
 
       function mudarIdioma(novo) {
