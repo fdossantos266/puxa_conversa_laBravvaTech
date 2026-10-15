@@ -69,7 +69,12 @@
       body {
         margin: 0;
         padding: 0;
-        height: 100%;
+      }
+      /* Sem height:100% no body. Com ele, o gradiente tinha a altura de
+         uma tela e se repetia abaixo, criando uma emenda visível assim
+         que a página ficava mais alta que a janela. */
+      html {
+        background: var(--wine-800);
       }
       body {
         font-family: "Quicksand", sans-serif;
@@ -100,6 +105,8 @@
             var(--wine-800) 55%,
             var(--wine-700)
           );
+        background-repeat: no-repeat;
+        background-color: var(--wine-800);
         min-height: 100vh;
         display: flex;
         flex-direction: column;

@@ -1,6 +1,6 @@
 // Nome do cache. Mude o "v1" sempre que alterar o site,
 // senão os usuários continuam vendo a versão antiga guardada.
-const CACHE = 'puxa-conversa-v16';
+const CACHE = 'puxa-conversa-v17';
 
 // Arquivos guardados na instalação
 const ARQUIVOS = [
